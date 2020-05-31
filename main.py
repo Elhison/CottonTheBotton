@@ -52,16 +52,16 @@ async def on_member_remove(member):
 
 @client.event
 async def on_message(message):
-
+    bad_words = ('dumb','stupid','ugly')
 
     if message.content.startswith("69"):
         await message.channel.send("nice.")
 
-    elif "turtles" in message.content or "turtle" in message.content.lower():
+    elif "turtles" in message.content.lower() or "turtle" in message.content.lower():
         emoji = "\U0001F422"
         await message.add_reaction(emoji)
 
-    elif message.content.startswith(f"turtles are "):
+    elif message.content.startswith(f"turtles are {bad_words}"):
         await message.channel.send("no u")
 
     elif message.content.startswith("fuck you") or message.content.startswith("Fuck you"):
@@ -124,7 +124,6 @@ async def role(message):
         message.send('Gave you x!')
 
 
-
 @client.command()
 async def love(ctx):
     emojiChoice = ['\u2665','\u2764']
@@ -145,32 +144,4 @@ async def random_number(ctx):
     await ctx.send()
 
 
-@client.command()
-@commands.has_any_role('Big pp')
-async def msgg(ctx):
-
-    text = ""
-
-    while True:
-        text = input("Enter something: ")
-        if text == '|':
-            break
-
-        await ctx.send(text)
-
-
-@client.command()
-@commands.has_any_role('Big pp')
-async def msgdm(ctx):
-    text = ""
-    user = client.get_user(194523607546855424)
-
-    while True:
-        text = input("Enter something: ")
-        await user.send(text)
-        if text == '|':
-            break
-
-
 # client.run(INSERT_TOKEN_HERE)
-
