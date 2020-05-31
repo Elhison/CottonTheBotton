@@ -172,5 +172,5 @@ async def msgdm(ctx):
             break
 
 
-client.run("NzEwMDYxMDAzNjY0MjYxMjAx.Xru-Dw.kSCaKQEu5YNRUFTAkgYoCBWRH5Q")
+# client.run(INSERT_TOKEN_HERE)
 
