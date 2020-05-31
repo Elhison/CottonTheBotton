@@ -16,13 +16,12 @@ print("Booting...")
 
 @client.event
 async def on_ready():
-    channel = client.get_channel(709669976390500422)
     change_status.start()
     print('Logged in as')
     print(client.user.name)
     print(client.user.id)
     print('------')
-    await channel.send("I'm online!")
+
 
 
 @client.event
@@ -35,7 +34,7 @@ async def on_member_join(member):
                 f'Welcome, {member.mention}! Enjoy your stay. ☺️',
                 f'Wilkommen, {member.mention}!',
                 f'Välkommen, {member.mention}!',
-                f'Tervetuloa, {member.mention}')
+                f'Tervetuloa, {member.mention}!')
 
 
     print(f'{member} has joined.')
