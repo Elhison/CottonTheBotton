@@ -12,7 +12,7 @@ client.remove_command("help")
 
 status = cycle([' with your little sister',' with my stepsister', ' with your mom', ' with myself'])
 
-print("Starting...")
+print("Booting...")
 
 @client.event
 async def on_ready():
@@ -128,10 +128,10 @@ async def role(message):
 
 
 @client.command()
-async def love(ctx):
+async def love(message):
     emojiChoice = ['\u2665','\u2764']
     emoji = random.choice(emojiChoice)
-    await ctx.message.add_reaction(emoji)
+    await message.add_reaction(emoji)
 
 
 @client.command()
