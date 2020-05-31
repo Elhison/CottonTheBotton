@@ -2,8 +2,8 @@
 
 import asyncio
 import discord
-import random
 
+from random import choice, randint, uniform
 from discord.ext import commands, tasks
 from itertools import cycle
 
@@ -110,7 +110,9 @@ async def members_list(message):
 
 @client.command(aliases=['8ball'])
 async def eightball(ctx, *, question):
-    answer = ["Yes", "Maybe", "No"]
+    answer = ["Yes", "Of course", "Always",
+              "Maybe", "Probably",
+              "No", "Never", "In your dreams!"]
 
     if question == "":
         print("Empty!")
@@ -145,9 +147,9 @@ async def affection(ctx):
 
 
 @client.command(aliases=['rdmnumber','randomnumber','rdmnum','randomnum'])
-async def random_number(ctx):
+async def random_number(num1, num2, datatype):
 
-    await ctx.send()
+    await ctx.send(random)
 
 
 # client.run(INSERT_TOKEN_HERE)
