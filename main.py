@@ -149,7 +149,10 @@ async def affection(ctx):
 @client.command(aliases=['rdmnumber','randomnumber','rdmnum','randomnum'])
 async def random_number(num1, num2, datatype):
 
-    await ctx.send(random)
+    if datatype == 'int' or datatype == 'integer':
+        await ctx.send(random.randint(num1,num2))
+    elif datatype == 'double' or datatype == 'float' or datatype == 'decimal':
+        await ctx.send(random.uniform(num1,num2))
 
 
 # client.run(INSERT_TOKEN_HERE)
