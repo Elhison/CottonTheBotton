@@ -2,8 +2,8 @@
 
 import asyncio
 import discord
+import random
 
-from random import choice, randint, uniform
 from discord.ext import commands, tasks
 from itertools import cycle
 
@@ -108,17 +108,6 @@ async def members_list(message):
     await message.channel.send(f"There are {id.member_count-2} virgins on this server.")
 
 
-@client.command(aliases=['8ball'])
-async def eightball(ctx, *, question):
-    answer = ["Yes", "Of course", "Always",
-              "Maybe", "Probably",
-              "No", "Never", "In your dreams!"]
-
-    if question == "":
-        print("Empty!")
-    await ctx.send(f'Question: {question}\nAnswer: {random.choice(answer)}')
-
-
 @client.command()
 async def botping(ctx):
     await ctx.send(f'{client.latency * 1000}ms')
@@ -146,13 +135,27 @@ async def affection(ctx):
     await ctx.send(random.choice(hugs))
 
 
+@client.command(aliases=['8ball'])
+async def eightball(ctx, *, question):
+    answer = ["Yes", "Of course", "Always",
+              "Maybe", "Probably",
+              "No", "Never", "In your dreams!"]
+
+    if question == "":
+        await ctx.send(f'Ask me a question. Lmaoooooo')
+    await ctx.send(f'Question: {question}\nAnswer: {random.choice(answer)}')
+
+
 @client.command(aliases=['rdmnumber','randomnumber','rdmnum','randomnum'])
-async def random_number(num1, num2, datatype):
+async def random_number(ctx, num1 : int, num2 : int, typer):
+    value = str(random.uniform(num1, num2)) + "\n"
+    value2 = str(random.randint(num1, num2)) + "\n"
 
-    if datatype == 'int' or datatype == 'integer':
-        await ctx.send(random.randint(num1,num2))
-    elif datatype == 'double' or datatype == 'float' or datatype == 'decimal':
-        await ctx.send(random.uniform(num1,num2))
+    if typer == 'double' or typer == 'float' or typer == 'decimal':
+        await ctx.send(value)
+
+    else:
+        await ctx.send(value2)
 
 
-# client.run(INSERT_TOKEN_HERE)
+client.run('NzEwMDYxMDAzNjY0MjYxMjAx.XtOkKw.uOZu32w2OpU6iDIM_Sn8N60_KBk')
