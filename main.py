@@ -30,10 +30,12 @@ async def on_member_join(member):
     # Add more welcome stuff
     roleID = member.Guild.get_role(705295866495500339)
     channel = client.get_channel(705295704251301899)
-    welcomes = (f'Bienvenue, {member.mention}',
-                f'Bienvenu, {member.mention}',
+    welcomes = (f'Bienvenue, {member.mention} !',
+                f'Bienvenu, {member.mention} !',
                 f'Welcome, {member.mention}! Enjoy your stay. ☺️',
-                f'Wilkommen')
+                f'Wilkommen, {member.mention}!',
+                f'Välkommen, {member.mention}!',
+                f'Tervetuloa, {member.mention}')
 
 
     print(f'{member} has joined.')
@@ -46,11 +48,13 @@ async def on_member_remove(member):
     # Add more farewells
     channel = client.get_channel(713995293833822208)
     farewells = (f'Goodbye, {member.mention}. We will miss you! :(',
-                 f'Auf Wiedersehen, {member.mention}. :(')
+                 f'Auf Wiedersehen, {member.mention}. :(',
+                 f'Farväl, {member.mention}. :(',
+                 f'Jäähyväiset, {member.mention}. :(')
 
 
     print(f'{member} has left.')
-    await channel.send(random.choice(farewells)))
+    await channel.send(random.choice(farewells))
 
 
 @client.event
