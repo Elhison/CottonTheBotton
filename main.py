@@ -45,9 +45,12 @@ async def on_member_join(member):
 async def on_member_remove(member):
     # Add more farewells
     channel = client.get_channel(713995293833822208)
-    farewells = (f'')
+    farewells = (f'Goodbye, {member.mention}. We will miss you! :(',
+                 f'Auf Wiedersehen, {member.mention}. :(')
+
+
     print(f'{member} has left.')
-    await channel.send(f'{member.mention} finally decided to fuck off.')
+    await channel.send(random.choice(farewells)))
 
 
 @client.event
