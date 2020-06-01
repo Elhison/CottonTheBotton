@@ -1,6 +1,5 @@
 #!/usr/bin/env python
 
-import asyncio
 import discord
 import random
 
@@ -10,24 +9,26 @@ from itertools import cycle
 client = commands.Bot(command_prefix='69')
 client.remove_command("help")
 
-status = cycle([' with your little sister',' with my stepsister', ' with your mom', ' with myself'])
+status = cycle([' with your little sister', ' with my stepsister',
+                ' with your mom', ' with myself'])
 
 print("Booting...")
+
 
 @client.event
 async def on_ready():
     change_status.start()
+    hourly_message.start()
     print('Logged in as')
     print(client.user.name)
     print(client.user.id)
     print('------')
 
 
-
 @client.event
 async def on_member_join(member):
     # Add more welcome stuff
-    roleID = member.Guild.get_role(705295866495500339)
+    role_id = member.Guild.get_role(705295866495500339)
     channel = client.get_channel(705295704251301899)
     welcomes = (f'Bienvenue, {member.mention} !',
                 f'Bienvenu, {member.mention} !',
@@ -36,10 +37,9 @@ async def on_member_join(member):
                 f'Välkommen, {member.mention}!',
                 f'Tervetuloa, {member.mention}!')
 
-
     print(f'{member} has joined.')
     await channel.send(random.choice(welcomes))
-    await member.add_roles(roleID)
+    await member.add_roles(role_id)
 
 
 @client.event
@@ -51,14 +51,13 @@ async def on_member_remove(member):
                  f'Farväl, {member.mention}. :(',
                  f'Jäähyväiset, {member.mention}. :(')
 
-
     print(f'{member} has left.')
     await channel.send(random.choice(farewells))
 
 
 @client.event
 async def on_message(message):
-    bad_words = ('dumb','stupid','ugly')
+    bad_words = ('dumb', 'stupid', 'ugly')
 
     if message.content.startswith("69"):
         await message.channel.send("nice.")
@@ -73,10 +72,17 @@ async def on_message(message):
     elif message.content.startswith("fuck you") or message.content.startswith("Fuck you"):
         await message.channel.send("No thanks :p")
 
+    elif message.content.startswith("fuck") or message.content.startswith("Fuck"):
+        await message.channel.send("you.")
+
+    elif "shit" in message.content.lower():
+        await message.add_reaction("\U0001F4A9")
+
+    elif "linux" in message.content.lower():
+        await message.channel.send("i use arch, btw")
 
     else:
         pass
-
 
     await client.process_commands(message)
 
@@ -91,6 +97,13 @@ async def change_status():
     await client.change_presence(activity=discord.Game(next(status)))
 
 
+@tasks.loop(hours=1)
+async def hourly_message(ctx):
+    hour_messages = ('How is everyone doing?',
+                     'Anyone want to chat?',
+                     'Joshua Pogchamp once said, "Pog".')
+    await ctx.send(random.choice(hour_messages))
+
 
 # Commands!!!
 
@@ -102,10 +115,10 @@ async def whoami(ctx):
     await ctx.send(f'{ctx.author} / {ctx.author.mention} / {ctx.author.nickname}')
 
 
-@client.command()
+@client.command(aliases=['members'])
 async def members_list(message):
-    id = client.get_guild(693377457243553873)
-    await message.channel.send(f"There are {id.member_count-2} virgins on this server.")
+    guild_id = client.get_guild(693377457243553873)
+    await message.channel.send(f"There are {guild_id.member_count-2} virgins on this server.")
 
 
 @client.command()
@@ -116,22 +129,15 @@ async def botping(ctx):
 @client.command()
 async def role(message):
     # Assigns roles
-    roles_list = ('Math','Science')
+    roles_list = ('Math', 'Science')
     if message.content.startswith(f'role {roles_list}'):
         message.send('Gave you x!')
 
 
-@client.command()
-async def love(message):
-    emojiChoice = ['\u2665','\u2764']
-    emoji = random.choice(emojiChoice)
-    await message.add_reaction(emoji)
-
-
-@client.command()
+@client.command(aliases=['love'])
 async def affection(ctx):
-    hugs = ['༼ つ ◕_◕ ༽つ', '(づ｡◕‿‿◕｡)づ','(づ￣ ³￣)づ','༼ つ  ͡° ͜ʖ ͡° ༽つ','😘',
-            '(ﾉ◕ヮ◕)ﾉ*:･ﾟ✧ ✧ﾟ･: *ヽ(◕ヮ◕ヽ)','♥‿♥','😽','😙','😚']
+    hugs = ['༼ つ ◕_◕ ༽つ', '(づ｡◕‿‿◕｡)づ', '(づ￣ ³￣)づ', '༼ つ  ͡° ͜ʖ ͡° ༽つ', '😘',
+            '(ﾉ◕ヮ◕)ﾉ*:･ﾟ✧ ✧ﾟ･: *ヽ(◕ヮ◕ヽ)', '♥‿♥', '😽', '😙', '😚', '\u2665', '\u2764']
     await ctx.send(random.choice(hugs))
 
 
@@ -146,8 +152,8 @@ async def eightball(ctx, *, question):
     await ctx.send(f'Question: {question}\nAnswer: {random.choice(answer)}')
 
 
-@client.command(aliases=['rdmnumber','randomnumber','rdmnum','randomnum'])
-async def random_number(ctx, num1 : int, num2 : int, typer):
+@client.command(aliases=['rdmnumber', 'randomnumber', 'rdmnum', 'randomnum'])
+async def random_number(ctx, num1: int, num2: int, typer):
     value = str(random.uniform(num1, num2)) + "\n"
     value2 = str(random.randint(num1, num2)) + "\n"
 
@@ -158,4 +164,10 @@ async def random_number(ctx, num1 : int, num2 : int, typer):
         await ctx.send(value2)
 
 
-client.run('NzEwMDYxMDAzNjY0MjYxMjAx.XtOkKw.uOZu32w2OpU6iDIM_Sn8N60_KBk')
+@client.command()
+async def ban(ctx, member: discord.Member):
+
+    await ctx.channel.send(f'Banning {member.mention}...')
+
+
+client.run('')
