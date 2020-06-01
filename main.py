@@ -2,6 +2,7 @@
 
 import discord
 import random
+import datetime
 
 from discord.ext import commands, tasks
 from itertools import cycle
@@ -30,8 +31,8 @@ async def on_member_join(member):
     # Add more welcome stuff
     role_id = member.Guild.get_role(705295866495500339)
     channel = client.get_channel(705295704251301899)
-    welcomes = (f'Bienvenue, {member.mention} !',
-                f'Bienvenu, {member.mention} !',
+    welcomes = (f'Bienvenue, {member.mention} ! Amusez-vous bien!',
+                f'Bienvenu, {member.mention} ! Amusez-vous bien!',
                 f'Welcome, {member.mention}! Enjoy your stay. ☺️',
                 f'Wilkommen, {member.mention}!',
                 f'Välkommen, {member.mention}!',
@@ -97,13 +98,21 @@ async def change_status():
     await client.change_presence(activity=discord.Game(next(status)))
 
 
-@tasks.loop(hours=1)
-async def hourly_message(ctx):
-    hour_messages = ('How is everyone doing?',
-                     'Anyone want to chat?',
-                     'Joshua Pogchamp once said, "Pog".')
-    await ctx.send(random.choice(hour_messages))
+@tasks.loop(seconds=1)
+async def hourly_message():
+    channel = client.get_channel(693377457797201942)
+    print("hello")
+    if await channel.fetch_message(channel.last_message_sent) == datetime.datetime.now:
+        messages = ['How is everyone doing?',
+                    'Anyone want to chat?',
+                    'Joshua Pogchamp once said, "Pog".']
+        await channel.send(random.choice(messages))
+        print("Beep boop")
 
+    else:
+
+        print("didn't work")
+    print("hi")
 
 # Commands!!!
 
@@ -118,7 +127,7 @@ async def whoami(ctx):
 @client.command(aliases=['members'])
 async def members_list(message):
     guild_id = client.get_guild(693377457243553873)
-    await message.channel.send(f"There are {guild_id.member_count-2} virgins on this server.")
+    await message.channel.send(f"There are {guild_id.member_count - 2} virgins on this server.")
 
 
 @client.command()
@@ -166,7 +175,6 @@ async def random_number(ctx, num1: int, num2: int, typer):
 
 @client.command()
 async def ban(ctx, member: discord.Member):
-
     await ctx.channel.send(f'Banning {member.mention}...')
 
 
