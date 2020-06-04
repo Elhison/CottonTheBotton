@@ -31,6 +31,7 @@ async def on_member_join(member):
     # Add more welcome stuff
     role_id = member.Guild.get_role(705295866495500339)
     channel = client.get_channel(705295704251301899)
+    channel_two = client.get_channel(693377457797201942)
     welcomes = (f'Bienvenue, {member.mention} ! Amusez-vous bien!',
                 f'Bienvenu, {member.mention} ! Amusez-vous bien!',
                 f'Welcome, {member.mention}! Enjoy your stay. ☺️',
@@ -40,6 +41,7 @@ async def on_member_join(member):
 
     print(f'{member} has joined.')
     await channel.send(random.choice(welcomes))
+    await channel_two.send(f"{member.mention}, please ping The @Pope or any of the cardinals to get a role.")
     await member.add_roles(role_id)
 
 
