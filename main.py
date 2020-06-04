@@ -27,9 +27,11 @@ async def on_ready():
 
 @client.event
 async def on_member_join(member):
-    # Add more welcome stuff
+
     channel = client.get_channel(705295704251301899)
-    channel_two = client.get_channel(693377457797201942)
+    guild = discord.utils.get(client.guilds, name="Cotton's Nursery")
+    role_id = discord.utils.get(guild.roles, name="Carbon-based life form")
+    # Add more welcome stuff
     welcomes = (f'Bienvenue, {member.mention} ! Amusez-vous bien!',
                 f'Bienvenu, {member.mention} ! Amusez-vous bien!',
                 f'Welcome, {member.mention}! Enjoy your stay. ☺️',
@@ -39,7 +41,7 @@ async def on_member_join(member):
 
     print(f'{member} has joined.')
     await channel.send(random.choice(welcomes))
-    await channel_two.send(f"{member.mention}, please ping The @Pope or any of the cardinals to get a role.")
+    await member.add_roles(role_id)
 
 
 @client.event
@@ -107,23 +109,9 @@ async def whoami(ctx):
     await ctx.send(f'{ctx.author} / {ctx.author.mention} / {ctx.author.nickname}')
 
 
-@client.command(aliases=['members'])
-async def members_list(message):
-    guild_id = client.get_guild(693377457243553873)
-    await message.channel.send(f"There are {guild_id.member_count - 2} virgins on this server.")
-
-
 @client.command()
 async def botping(ctx):
     await ctx.send(f'{client.latency * 1000}ms')
-
-
-@client.command()
-async def role(message):
-    # Assigns roles
-    roles_list = ('Math', 'Science')
-    if message.content.startswith(f'role {roles_list}'):
-        message.send('Gave you x!')
 
 
 @client.command(aliases=['love'])
@@ -167,6 +155,28 @@ async def reverse(ctx, *, message):
 @client.command()
 async def ban(ctx, member: discord.Member):
     await ctx.channel.send(f'Banning {member.mention}...')
+
+
+@client.command()
+@commands.has_any_role('Big pp')
+async def give_role(ctx, member: discord.Member, *, role_name):
+    guild = discord.utils.get(client.guilds, name="Cotton's Nursery")
+    role_id = discord.utils.get(guild.roles, name=role_name)
+    await member.add_roles(role_id)
+
+
+@client.command(aliases=['members'])
+async def members_list(message):
+    guild_id = client.get_guild(693377457243553873)
+    await message.channel.send(f"There are {guild_id.member_count - 2} virgins on this server.")
+
+
+@client.command()
+@commands.has_any_role('Big pp')
+async def list_roles(ctx):
+    guild_id = client.get_guild(693377457243553873)
+    await guild_id.fetch_roles()
+    await ctx.send()
 
 
 client.run('')
