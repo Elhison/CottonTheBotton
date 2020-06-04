@@ -19,7 +19,6 @@ print("Booting...")
 @client.event
 async def on_ready():
     change_status.start()
-    hourly_message.start()
     print('Logged in as')
     print(client.user.name)
     print(client.user.id)
@@ -29,7 +28,6 @@ async def on_ready():
 @client.event
 async def on_member_join(member):
     # Add more welcome stuff
-    role_id = member.Guild.get_role(705295866495500339)
     channel = client.get_channel(705295704251301899)
     channel_two = client.get_channel(693377457797201942)
     welcomes = (f'Bienvenue, {member.mention} ! Amusez-vous bien!',
@@ -42,7 +40,6 @@ async def on_member_join(member):
     print(f'{member} has joined.')
     await channel.send(random.choice(welcomes))
     await channel_two.send(f"{member.mention}, please ping The @Pope or any of the cardinals to get a role.")
-    await member.add_roles(role_id)
 
 
 @client.event
@@ -100,22 +97,6 @@ async def change_status():
     await client.change_presence(activity=discord.Game(next(status)))
 
 
-@tasks.loop(seconds=1)
-async def hourly_message():
-    channel = client.get_channel(693377457797201942)
-    print("hello")
-    if await channel.fetch_message(channel.last_message_sent) == datetime.datetime.now:
-        messages = ['How is everyone doing?',
-                    'Anyone want to chat?',
-                    'Joshua Pogchamp once said, "Pog".']
-        await channel.send(random.choice(messages))
-        print("Beep boop")
-
-    else:
-
-        print("didn't work")
-    print("hi")
-
 # Commands!!!
 
 # Commands!!!
@@ -149,6 +130,7 @@ async def role(message):
 async def affection(ctx):
     hugs = ['༼ つ ◕_◕ ༽つ', '(づ｡◕‿‿◕｡)づ', '(づ￣ ³￣)づ', '༼ つ  ͡° ͜ʖ ͡° ༽つ', '😘',
             '(ﾉ◕ヮ◕)ﾉ*:･ﾟ✧ ✧ﾟ･: *ヽ(◕ヮ◕ヽ)', '♥‿♥', '😽', '😙', '😚', '\u2665', '\u2764']
+    await ctx.channel.purge(limit=2)
     await ctx.send(random.choice(hugs))
 
 
@@ -173,6 +155,13 @@ async def random_number(ctx, num1: int, num2: int, typer):
 
     else:
         await ctx.send(value2)
+
+
+@client.command()
+async def reverse(ctx, *, message):
+    msg = ctx.message.content
+    message = msg[10:]
+    await ctx.send(message[::-1])
 
 
 @client.command()
