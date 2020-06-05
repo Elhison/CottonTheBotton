@@ -11,7 +11,7 @@ client = commands.Bot(command_prefix='69')
 client.remove_command("help")
 
 status = cycle([' with your little sister', ' with my stepsister',
-                ' with your mom', ' with myself'])
+                ' with your mom', ' with myself', ' with your brother', 'with my stepbrother'])
 
 print("Booting...")
 
@@ -82,6 +82,13 @@ async def on_message(message):
 
     elif "linux" in message.content.lower():
         await message.channel.send("i use arch, btw")
+
+    elif "bitch" in message.content.lower():
+        await message.add_reaction("\U0000FE0F")
+        await message.add_reaction("\U0001F415")
+
+    elif "motherfucker" in message.content.lower():
+        await message.channel.send("I will fuck your mother too!")
 
     else:
         pass
@@ -172,11 +179,25 @@ async def members_list(message):
 
 
 @client.command()
+async def sendimg(ctx):
+    file = discord.File("./dog.jpeg", filename="dog.jpeg")
+    embed = discord.Embed()
+    embed.set_image(url="attachment://dog.jpeg")
+    await ctx.send(file=file, embed=embed)
+
+
+@client.command()
 @commands.has_any_role('Big pp')
-async def list_roles(ctx):
-    guild_id = client.get_guild(693377457243553873)
-    await guild_id.fetch_roles()
-    await ctx.send()
+async def sendembed(ctx):
+    embed=discord.Embed(title="Server Rules:", color=0x00fff9)
+    embed.add_field(name="Rule #1", value="You can joke about anything as long as you don't offend other people. If you do offend someone, apologize.", inline=False)
+    embed.add_field(name="Rule #2", value="NSFW content is allowed in the appropriate channels.", inline=False)
+    embed.add_field(name="Rule #3", value="Bestiality, child porn, torture, etc. are not allowed and will result in an immediate ban.", inline=False)
+    embed.add_field(name="Rule #4", value="We are all equal and we accept everyone — regardless of race, gender, or sexuality.", inline=False)
+    embed.add_field(name="Rule #5", value="You can only advertise your works (video, project, product, etc.) in the advertisement channel.", inline=False)
+    embed.add_field(name="Rule #6", value="Swearing is allowed as long as you don't offend anyone.", inline=False)
+    embed.set_footer(text="Rules are bound to change. We will notify you.")
+    await ctx.send(embed=embed)
 
 
 client.run('')
