@@ -2,7 +2,6 @@
 
 import discord
 import random
-import datetime
 
 from discord.ext import commands, tasks
 from itertools import cycle
@@ -134,28 +133,35 @@ async def eightball(ctx, *, question):
     answer = ["Yes", "Of course", "Always",
               "Maybe", "Probably",
               "No", "Never", "In your dreams!"]
-
+    await ctx.channel.purge(limit=1)
     if question == "":
         await ctx.send(f'Ask me a question. Lmaoooooo')
     await ctx.send(f'Question: {question}\nAnswer: {random.choice(answer)}')
 
 
-@client.command(aliases=['rdmnumber', 'randomnumber', 'rdmnum', 'randomnum'])
-async def random_number(ctx, num1: int, num2: int, typer):
-    value = str(random.uniform(num1, num2)) + "\n"
-    value2 = str(random.randint(num1, num2)) + "\n"
+@client.command(aliases=['randomnumber', 'rdmnum'])
+async def random_number(ctx, num1: int, num2: int):
+    value = str(random.randint(num1, num2)) + "\n"
 
-    if typer == 'double' or typer == 'float' or typer == 'decimal':
-        await ctx.send(value)
+    await ctx.channel.purge(limit=1)
+    await ctx.send(value)
 
-    else:
-        await ctx.send(value2)
+
+@client.command()
+async def sort_alphabetically(ctx, *messages):
+    print(type(messages))
+    msgs = list(messages)
+    print(type(sorted(msgs)))
+    await ctx.channel.purge(limit=1)
+    for entry in sorted(msgs):
+        await ctx.send(entry)
 
 
 @client.command()
 async def reverse(ctx, *, message):
     msg = ctx.message.content
     message = msg[10:]
+    await ctx.channel.purge(limit=1)
     await ctx.send(message[::-1])
 
 
@@ -169,27 +175,46 @@ async def ban(ctx, member: discord.Member):
 async def give_role(ctx, member: discord.Member, *, role_name):
     guild = discord.utils.get(client.guilds, name="Cotton's Nursery")
     role_id = discord.utils.get(guild.roles, name=role_name)
+    await ctx.channel.purge(limit=2)
+    await ctx.send(f"Gave {member} a {role_id} role!")
     await member.add_roles(role_id)
 
 
 @client.command(aliases=['members'])
 async def members_list(message):
     guild_id = client.get_guild(693377457243553873)
+    await message.channel.purge(limit=2)
     await message.channel.send(f"There are {guild_id.member_count - 2} virgins on this server.")
 
 
 @client.command()
 async def sendimg(ctx):
-    file = discord.File("./dog.jpeg", filename="dog.jpeg")
+    file_names = ['dog0.jpg', 'dog1.jpg', 'dog2.jpg', 'dog3.jpg', 'dog4.jpg'
+                 , 'dog5.jpg', 'dog6.jpg', 'dog7.jpg', 'dog8.jpg', 'dog9.jpg'
+                 , 'dog10.jpg', 'dog11.jpg', 'dog12.jpg', 'dog13.jpg', 'dog14.jpg']
+    rdmfile = random.choice(file_names)
+    file = discord.File(f"./images/{rdmfile}", filename=rdmfile)
     embed = discord.Embed()
-    embed.set_image(url="attachment://dog.jpeg")
+    embed.set_image(url=f"attachment://{rdmfile}")
+    await ctx.channel.purge(limit=2)
     await ctx.send(file=file, embed=embed)
+
+
+@client.command()
+async def invite(ctx):
+    await ctx.channel.purge(limit=2)
+    await ctx.send('https://discord.com/invite/QrZgbhk')
+
+
+# Embed-related commands!!!
+
+# Embed-related commands!!!
 
 
 @client.command()
 @commands.has_any_role('Big pp')
 async def sendembed(ctx):
-    embed=discord.Embed(title="Server Rules:", color=0x00fff9)
+    embed = discord.Embed(title="Server Rules:", color=0x00fff9)
     embed.add_field(name="Rule #1", value="You can joke about anything as long as you don't offend other people. If you do offend someone, apologize.", inline=False)
     embed.add_field(name="Rule #2", value="NSFW content is allowed in the appropriate channels.", inline=False)
     embed.add_field(name="Rule #3", value="Bestiality, child porn, torture, etc. are not allowed and will result in an immediate ban.", inline=False)
@@ -197,6 +222,59 @@ async def sendembed(ctx):
     embed.add_field(name="Rule #5", value="You can only advertise your works (video, project, product, etc.) in the advertisement channel.", inline=False)
     embed.add_field(name="Rule #6", value="Swearing is allowed as long as you don't offend anyone.", inline=False)
     embed.set_footer(text="Rules are bound to change. We will notify you.")
+    await ctx.send(embed=embed)
+
+
+@client.command()
+async def first_rule(ctx):
+    embed = discord.Embed(title=" ", color=0x00fff9)
+    embed.add_field(name="Rule #1:", value="You can joke about anything as long as you don't offend other people."
+                    " If you do offend someone, apologize.", inline=False)
+    await ctx.channel.purge(limit=3)
+    await ctx.send(embed=embed)
+
+
+@client.command()
+async def second_rule(ctx):
+    embed = discord.Embed(title=" ", color=0x00fff9)
+    embed.add_field(name="Rule #2", value="NSFW content is allowed in the appropriate channels.", inline=False)
+    await ctx.channel.purge(limit=3)
+    await ctx.send(embed=embed)
+
+
+@client.command()
+async def third_rule(ctx):
+    embed = discord.Embed(title=" ", color=0x00fff9)
+    embed.add_field(name="Rule #3",
+                    value="Bestiality, child porn, torture, etc. are not allowed and will result in an immediate ban.",
+                    inline=False)
+    await ctx.channel.purge(limit=3)
+    await ctx.send(embed=embed)
+
+
+@client.command()
+async def fourth_rule(ctx):
+    embed = discord.Embed(title=" ", color=0x00fff9)
+    embed.add_field(name="Rule #4",
+                    value="We are all equal and we accept everyone — regardless of race, gender, or sexuality.",
+                    inline=False)
+    await ctx.channel.purge(limit=3)
+    await ctx.send(embed=embed)
+
+
+@client.command()
+async def fifth_rule(ctx):
+    embed = discord.Embed(title=" ", color=0x00fff9)
+    embed.add_field(name="Rule #5", value="You can only advertise your works (video, project, product, etc.) in the advertisement channel.", inline=False)
+    await ctx.channel.purge(limit=3)
+    await ctx.send(embed=embed)
+
+
+@client.command()
+async def sixth_rule(ctx):
+    embed = discord.Embed(title=" ", color=0x00fff9)
+    embed.add_field(name="Rule #6", value="Swearing is allowed as long as you don't offend anyone.", inline=False)
+    await ctx.channel.purge(limit=3)
     await ctx.send(embed=embed)
 
 
