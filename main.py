@@ -1,16 +1,19 @@
 #!/usr/bin/env python
 
+# To-do list
+# Exception handling
+
 import discord
 import random
 
 from discord.ext import commands, tasks
 from itertools import cycle
 
-client = commands.Bot(command_prefix='69')
+client = commands.Bot(command_prefix=commands.when_mentioned_or('69'))
 client.remove_command("help")
 
-status = cycle([' with your little sister', ' with my stepsister',
-                ' with your mom', ' with myself', ' with your brother', 'with my stepbrother'])
+status = cycle([' with your little sister', ' with your brother', ' with your mom',
+                ' with myself', ' with my stepsister', 'with my step brother'])
 
 print("Booting...")
 
@@ -36,7 +39,8 @@ async def on_member_join(member):
                 f'Welcome, {member.mention}! Enjoy your stay. ☺️',
                 f'Wilkommen, {member.mention}!',
                 f'Välkommen, {member.mention}!',
-                f'Tervetuloa, {member.mention}!')
+                f'Tervetuloa, {member.mention}!',
+                f'Bine ai venti, {member.mention}. Să te simți bine aici!')
 
     print(f'{member} has joined.')
     await channel.send(random.choice(welcomes))
@@ -50,7 +54,8 @@ async def on_member_remove(member):
     farewells = (f'Goodbye, {member.mention}. We will miss you! :(',
                  f'Auf Wiedersehen, {member.mention}. :(',
                  f'Farväl, {member.mention}. :(',
-                 f'Jäähyväiset, {member.mention}. :(')
+                 f'Jäähyväiset, {member.mention}. :(',
+                 f'La revedere, {member.mention}. O să te lipsim.')
 
     print(f'{member} has left.')
     await channel.send(random.choice(farewells))
@@ -95,7 +100,19 @@ async def on_message(message):
     await client.process_commands(message)
 
 
+@client.event
+async def on_command_error(ctx, error):
+
+    await ctx.channel.purge(limit=1)
+
+    suggestion_channel = client.get_channel(709728865467105281)
+    if isinstance(error, commands.CommandNotFound):
+        await ctx.send("I don't know how to do that yet :/")
+        await ctx.send(f"If you have any suggestions, you can do so in the {suggestion_channel.mention} channel :p")
+
+
 # Tasks!!!
+
 
 # Tasks!!!
 
@@ -106,6 +123,7 @@ async def change_status():
 
 
 # Commands!!!
+
 
 # Commands!!!
 
@@ -130,6 +148,7 @@ async def affection(ctx):
 
 @client.command(aliases=['8ball'])
 async def eightball(ctx, *, question):
+
     answer = ["Yes", "Of course", "Always",
               "Maybe", "Probably",
               "No", "Never", "In your dreams!"]
@@ -141,6 +160,7 @@ async def eightball(ctx, *, question):
 
 @client.command(aliases=['randomnumber', 'rdmnum'])
 async def random_number(ctx, num1: int, num2: int):
+
     value = str(random.randint(num1, num2)) + "\n"
 
     await ctx.channel.purge(limit=1)
@@ -149,6 +169,7 @@ async def random_number(ctx, num1: int, num2: int):
 
 @client.command()
 async def sort_alphabetically(ctx, *messages):
+
     print(type(messages))
     msgs = list(messages)
     print(type(sorted(msgs)))
@@ -159,20 +180,30 @@ async def sort_alphabetically(ctx, *messages):
 
 @client.command()
 async def reverse(ctx, *, message):
+
+    await ctx.channel.purge(limit=1)
     msg = ctx.message.content
     message = msg[10:]
-    await ctx.channel.purge(limit=1)
     await ctx.send(message[::-1])
+
+
+@reverse.error
+async def reverse_error(ctx, error):
+    await ctx.channel.purge(limit=1)
+    if isinstance(error, commands.MissingRequiredArgument):
+        await ctx.send("You forgot to tell me what word you want to reverse. -,-")
 
 
 @client.command()
 async def ban(ctx, member: discord.Member):
+
     await ctx.channel.send(f'Banning {member.mention}...')
 
 
 @client.command()
 @commands.has_any_role('Big pp')
 async def give_role(ctx, member: discord.Member, *, role_name):
+
     guild = discord.utils.get(client.guilds, name="Cotton's Nursery")
     role_id = discord.utils.get(guild.roles, name=role_name)
     await ctx.channel.purge(limit=2)
@@ -182,13 +213,15 @@ async def give_role(ctx, member: discord.Member, *, role_name):
 
 @client.command(aliases=['members'])
 async def members_list(message):
+
     guild_id = client.get_guild(693377457243553873)
     await message.channel.purge(limit=2)
-    await message.channel.send(f"There are {guild_id.member_count - 2} virgins on this server.")
+    await message.channel.send(f"There are {guild_id.member_count - 4} virgins on this server.")
 
 
-@client.command()
-async def sendimg(ctx):
+@client.command(aliases=['cuteimg'])
+async def cute_image(ctx):
+
     file_names = ['dog0.jpg', 'dog1.jpg', 'dog2.jpg', 'dog3.jpg', 'dog4.jpg'
                  , 'dog5.jpg', 'dog6.jpg', 'dog7.jpg', 'dog8.jpg', 'dog9.jpg'
                  , 'dog10.jpg', 'dog11.jpg', 'dog12.jpg', 'dog13.jpg', 'dog14.jpg']
@@ -196,17 +229,51 @@ async def sendimg(ctx):
     file = discord.File(f"./images/{rdmfile}", filename=rdmfile)
     embed = discord.Embed()
     embed.set_image(url=f"attachment://{rdmfile}")
-    await ctx.channel.purge(limit=2)
+    await ctx.channel.purge(limit=1)
     await ctx.send(file=file, embed=embed)
+
+
+@client.command(aliases=['cutevid'])
+async def cute_video(ctx):
+
+    file_names = ['dog0.mp4', 'dog1.mp4', 'dog2.mp4', 'dog3.mp4', 'dog4.mp4'
+                  'cat0.mp4', 'cat1.mp4',
+                  'seal0.mp4',
+                  'squirrel0.mp4',
+                  'turtle0.mp4']
+    rdmfile = random.choice(file_names)
+    file = discord.File(f"./videos/{rdmfile}", filename=rdmfile)
+    await ctx.channel.purge(limit=1)
+    await ctx.send(file=file)
+
+@client.command()
+@commands.has_any_role('Big pp')
+async def pingmultiple(ctx, member: discord.Member, loops):
+
+    await ctx.channel.purge(limit=1)
+
+    loopz = int(loops)
+    num = 0
+    while num < loopz+1:
+
+        await ctx.send({member.mention})
+        loopz += 1
 
 
 @client.command()
 async def invite(ctx):
-    await ctx.channel.purge(limit=2)
+
+    await ctx.channel.purge(limit=1)
     await ctx.send('https://discord.com/invite/QrZgbhk')
 
 
+@client.command()
+async def eatdog(ctx):
+
+    await ctx.send("https://www.youtube.com/watch?v=CgHVNA8olaE")
+
 # Embed-related commands!!!
+
 
 # Embed-related commands!!!
 
@@ -214,14 +281,55 @@ async def invite(ctx):
 @client.command()
 @commands.has_any_role('Big pp')
 async def sendembed(ctx):
-    embed = discord.Embed(title="Server Rules:", color=0x00fff9)
-    embed.add_field(name="Rule #1", value="You can joke about anything as long as you don't offend other people. If you do offend someone, apologize.", inline=False)
-    embed.add_field(name="Rule #2", value="NSFW content is allowed in the appropriate channels.", inline=False)
-    embed.add_field(name="Rule #3", value="Bestiality, child porn, torture, etc. are not allowed and will result in an immediate ban.", inline=False)
-    embed.add_field(name="Rule #4", value="We are all equal and we accept everyone — regardless of race, gender, or sexuality.", inline=False)
-    embed.add_field(name="Rule #5", value="You can only advertise your works (video, project, product, etc.) in the advertisement channel.", inline=False)
-    embed.add_field(name="Rule #6", value="Swearing is allowed as long as you don't offend anyone.", inline=False)
-    embed.set_footer(text="Rules are bound to change. We will notify you.")
+
+    await ctx.channel.purge(limit=1)
+
+    embed = discord.Embed(title="List of Server Roles", description="(Sorted alphabetically)", color=0x0000ff)
+    embed.add_field(name="Math", value="""
+    • Algebra
+    • Arithmetic
+    • Calculus
+    • Combinatorics
+    • Discrete
+    • Game Theory
+    • Geometry
+    • Number Theory
+    • Statistics
+    • Topology
+    • Trigonometry""", inline=True)
+
+    embed.add_field(name="Science", value="""
+    • Astronomy
+    • Biology
+    • Botany
+    • Chemistry
+    • Computer Science
+    • Ecology
+    • Geology
+    • Medicine
+    • Meteorology
+    • Mycology
+    • Oceanography
+    • Physics
+    • Psychology
+    • Zoology""", inline=True)
+
+    embed.add_field(name="Technology", value="• Programmer", inline=True)
+
+    embed.add_field(name="Humanities", value="""
+    • Anthropology
+    • Archaeology
+    • Classics
+    • History
+    • Linguistics
+    • Law
+    • Music
+    • Politics
+    • Literature
+    • Philosophy
+    • Religion
+    • Performing Arts
+    • Visual Arts""", inline=True)
     await ctx.send(embed=embed)
 
 

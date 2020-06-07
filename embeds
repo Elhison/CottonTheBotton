@@ -1,0 +1,13 @@
+// Rules!!!
+
+embed = discord.Embed(title="Server Rules:", color=0x00fff9)
+    embed.add_field(name="Rule #1", value="You can joke about anything as long as you don't offend other people. If you do offend someone, apologize.", inline=False)
+    embed.add_field(name="Rule #2", value="NSFW content is allowed in the appropriate channels.", inline=False)
+    embed.add_field(name="Rule #3", value="Bestiality, child porn, torture, etc. are not allowed and will result in an immediate ban.", inline=False)
+    embed.add_field(name="Rule #4", value="We are all equal and we accept everyone — regardless of race, gender, or sexuality.", inline=False)
+    embed.add_field(name="Rule #5", value="You can only advertise your works (video, project, product, etc.) in the advertisement channel.", inline=False)
+    embed.add_field(name="Rule #6", value="Swearing is allowed as long as you don't offend anyone.", inline=False)
+    embed.set_footer(text="Rules are bound to change. We will notify you.")
+    await ctx.send(embed=embed)
+
+//
