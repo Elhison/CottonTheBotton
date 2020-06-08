@@ -11,3 +11,6 @@ embed = discord.Embed(title="Server Rules:", color=0x00fff9)
     await ctx.send(embed=embed)
 
 //
+
+
+

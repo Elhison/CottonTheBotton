@@ -1,10 +1,8 @@
 #!/usr/bin/env python
 
-# To-do list
-# Exception handling
-
 import discord
 import random
+import time
 
 from discord.ext import commands, tasks
 from itertools import cycle
@@ -13,7 +11,7 @@ client = commands.Bot(command_prefix=commands.when_mentioned_or('69'))
 client.remove_command("help")
 
 status = cycle([' with your little sister', ' with your brother', ' with your mom',
-                ' with myself', ' with my stepsister', 'with my step brother'])
+                ' with myself', ' with my stepsister', ' with my step brother'])
 
 print("Booting...")
 
@@ -21,9 +19,7 @@ print("Booting...")
 @client.event
 async def on_ready():
     change_status.start()
-    print('Logged in as')
-    print(client.user.name)
-    print(client.user.id)
+    print(f'Logged in at {time.ctime()}')
     print('------')
 
 
@@ -34,13 +30,13 @@ async def on_member_join(member):
     guild = discord.utils.get(client.guilds, name="Cotton's Nursery")
     role_id = discord.utils.get(guild.roles, name="Carbon-based life form")
     # Add more welcome stuff
-    welcomes = (f'Bienvenue, {member.mention} ! Amusez-vous bien!',
-                f'Bienvenu, {member.mention} ! Amusez-vous bien!',
+    welcomes = (f'Bienvenue, {member.mention}! Amusez-vous bien! 😘',
+                f'Bienvenu, {member.mention} ! Amusez-vous bien! 😘',
                 f'Welcome, {member.mention}! Enjoy your stay. ☺️',
                 f'Wilkommen, {member.mention}!',
                 f'Välkommen, {member.mention}!',
                 f'Tervetuloa, {member.mention}!',
-                f'Bine ai venti, {member.mention}. Să te simți bine aici!')
+                f'Bine ai venti, {member.mention}! Să te simți bine aici! 😜')
 
     print(f'{member} has joined.')
     await channel.send(random.choice(welcomes))
@@ -51,11 +47,11 @@ async def on_member_join(member):
 async def on_member_remove(member):
     # Add more farewells
     channel = client.get_channel(713995293833822208)
-    farewells = (f'Goodbye, {member.mention}. We will miss you! :(',
-                 f'Auf Wiedersehen, {member.mention}. :(',
-                 f'Farväl, {member.mention}. :(',
-                 f'Jäähyväiset, {member.mention}. :(',
-                 f'La revedere, {member.mention}. O să te lipsim.')
+    farewells = (f'Goodbye, {member.name}/{member.id}. We will miss you! :(',
+                 f'Auf Wiedersehen, {member.name}/{member.id}. :(',
+                 f'Farväl, {member.name}/{member.id}. :(',
+                 f'Jäähyväiset, {member.name}/{member.id}. :(',
+                 f'La revedere, {member.name}/{member.id}. O să te lipsim.')
 
     print(f'{member} has left.')
     await channel.send(random.choice(farewells))
@@ -88,8 +84,8 @@ async def on_message(message):
         await message.channel.send("i use arch, btw")
 
     elif "bitch" in message.content.lower():
-        await message.add_reaction("\U0000FE0F")
-        await message.add_reaction("\U0001F415")
+        await message.add_reaction("♀")
+        await message.add_reaction("🐕")
 
     elif "motherfucker" in message.content.lower():
         await message.channel.send("I will fuck your mother too!")
@@ -100,16 +96,15 @@ async def on_message(message):
     await client.process_commands(message)
 
 
-@client.event
-async def on_command_error(ctx, error):
-
-    await ctx.channel.purge(limit=1)
-
-    suggestion_channel = client.get_channel(709728865467105281)
-    if isinstance(error, commands.CommandNotFound):
-        await ctx.send("I don't know how to do that yet :/")
-        await ctx.send(f"If you have any suggestions, you can do so in the {suggestion_channel.mention} channel :p")
-
+# @client.event
+# async def on_command_error(ctx, error):
+#
+#     await ctx.channel.purge(limit=1)
+#
+#     suggestion_channel = client.get_channel(709728865467105281)
+#     if isinstance(error, commands.CommandNotFound):
+#         await ctx.send("I don't know how to do that yet :/")
+#         await ctx.send(f"If you have any suggestions, you can do so in the {suggestion_channel.mention} channel :p")
 
 # Tasks!!!
 
@@ -127,6 +122,10 @@ async def change_status():
 
 # Commands!!!
 
+
+@client.command()
+async def test(ctx):
+    await ctx.send("Lolololololool. How'd you find this?")
 
 @client.command()
 async def whoami(ctx):
@@ -189,6 +188,7 @@ async def reverse(ctx, *, message):
 
 @reverse.error
 async def reverse_error(ctx, error):
+
     await ctx.channel.purge(limit=1)
     if isinstance(error, commands.MissingRequiredArgument):
         await ctx.send("You forgot to tell me what word you want to reverse. -,-")
@@ -225,10 +225,10 @@ async def cute_image(ctx):
     file_names = ['dog0.jpg', 'dog1.jpg', 'dog2.jpg', 'dog3.jpg', 'dog4.jpg'
                  , 'dog5.jpg', 'dog6.jpg', 'dog7.jpg', 'dog8.jpg', 'dog9.jpg'
                  , 'dog10.jpg', 'dog11.jpg', 'dog12.jpg', 'dog13.jpg', 'dog14.jpg']
-    rdmfile = random.choice(file_names)
-    file = discord.File(f"./images/{rdmfile}", filename=rdmfile)
+    rdm_file = random.choice(file_names)
+    file = discord.File(f"./images/{rdm_file}", filename=rdm_file)
     embed = discord.Embed()
-    embed.set_image(url=f"attachment://{rdmfile}")
+    embed.set_image(url=f"attachment://{rdm_file}")
     await ctx.channel.purge(limit=1)
     await ctx.send(file=file, embed=embed)
 
@@ -241,14 +241,15 @@ async def cute_video(ctx):
                   'seal0.mp4',
                   'squirrel0.mp4',
                   'turtle0.mp4']
-    rdmfile = random.choice(file_names)
-    file = discord.File(f"./videos/{rdmfile}", filename=rdmfile)
+    rdm_file = random.choice(file_names)
+    file = discord.File(f"./videos/{rdm_file}", filename=rdm_file)
     await ctx.channel.purge(limit=1)
     await ctx.send(file=file)
 
+
 @client.command()
 @commands.has_any_role('Big pp')
-async def pingmultiple(ctx, member: discord.Member, loops):
+async def ping_multiple(ctx, member: discord.Member, loops):
 
     await ctx.channel.purge(limit=1)
 
@@ -268,7 +269,7 @@ async def invite(ctx):
 
 
 @client.command()
-async def eatdog(ctx):
+async def eat_dog(ctx):
 
     await ctx.send("https://www.youtube.com/watch?v=CgHVNA8olaE")
 
@@ -280,7 +281,7 @@ async def eatdog(ctx):
 
 @client.command()
 @commands.has_any_role('Big pp')
-async def sendembed(ctx):
+async def send_embed(ctx):
 
     await ctx.channel.purge(limit=1)
 
@@ -312,9 +313,11 @@ async def sendembed(ctx):
     • Oceanography
     • Physics
     • Psychology
+    • Witchcraft
     • Zoology""", inline=True)
 
-    embed.add_field(name="Technology", value="• Programmer", inline=True)
+    embed.add_field(name="Technology", value="""
+    • Programming""", inline=True)
 
     embed.add_field(name="Humanities", value="""
     • Anthropology
@@ -386,4 +389,22 @@ async def sixth_rule(ctx):
     await ctx.send(embed=embed)
 
 
-client.run('')
+@client.command()
+async def user_info(ctx, member):
+    ctx.send("WIP!")
+
+
+@client.command()
+async def poll_zero(ctx, *, message):
+    embed = discord.Embed(color=0xffff00)
+    channel = client.get_channel(717715772268609589)
+    emoji0 = '👍'
+    emoji1 = '👎'
+    embed.add_field(name=f"Poll created by {ctx.author}.", value=f"{message}")
+    await ctx.channel.purge(limit=1)
+    embed_id = await channel.send(embed=embed)
+    await embed_id.add_reaction(emoji0)
+    await embed_id.add_reaction(emoji1)
+
+
+client.run('NzEwMDYxMDAzNjY0MjYxMjAx.XtcNLA.bAsYY5ngS2OxpoHNrxJDRQHz3TY')
