@@ -4,12 +4,12 @@ import discord
 import random
 import datetime
 import time
+import os
 
 from discord.ext import commands, tasks
 from itertools import cycle
 
-client = commands.Bot(command_prefix=commands.when_mentioned_or('69'))
-client.remove_command("help")
+bot = commands.Bot(command_prefix=commands.when_mentioned_or('69'))
 
 status = cycle([' with your little sister', ' with your brother', ' with your mom',
                 ' with myself', ' with my stepsister', ' with my step brother'])
@@ -17,18 +17,18 @@ status = cycle([' with your little sister', ' with your brother', ' with your mo
 print("Booting...")
 
 
-@client.event
+@bot.event
 async def on_ready():
     change_status.start()
     print(f'Logged in at {time.ctime()}')
     print('------')
 
 
-@client.event
+@bot.event
 async def on_member_join(member):
 
-    channel = client.get_channel(705295704251301899)
-    guild = discord.utils.get(client.guilds, name="Cotton's Nursery")
+    channel = bot.get_channel(705295704251301899)
+    guild = discord.utils.get(bot.guilds, name="Cotton's Nursery")
     role_id = discord.utils.get(guild.roles, name="Carbon-based life form")
     # Add more welcome stuff
     welcomes = (f'Bienvenue, {member.mention}! Amusez-vous bien! 😘',
@@ -44,10 +44,10 @@ async def on_member_join(member):
     await member.add_roles(role_id)
 
 
-@client.event
+@bot.event
 async def on_member_remove(member):
     # Add more farewells
-    channel = client.get_channel(713995293833822208)
+    channel = bot.get_channel(713995293833822208)
     farewells = (f'Goodbye, {member.name}/{member.id}. We will miss you! :(',
                  f'Auf Wiedersehen, {member.name}/{member.id}. :(',
                  f'Farväl, {member.name}/{member.id}. :(',
@@ -58,7 +58,7 @@ async def on_member_remove(member):
     await channel.send(random.choice(farewells))
 
 
-@client.event
+@bot.event
 async def on_message(message):
     bad_words = ('dumb', 'stupid', 'ugly')
 
@@ -107,18 +107,18 @@ async def on_message(message):
     else:
         pass
 
-    await client.process_commands(message)
+    await bot.process_commands(message)
 
 
-@client.event
-async def on_command_error(ctx, error):
-
-    await ctx.channel.purge(limit=1)
-
-    suggestion_channel = client.get_channel(709728865467105281)
-    if isinstance(error, commands.CommandNotFound):
-        await ctx.send("I don't know how to do that yet :/")
-        await ctx.send(f"If you have any suggestions, you can do so in the {suggestion_channel.mention} channel :p")
+# @bot.event
+# async def on_command_error(ctx, error):
+#
+#     await ctx.channel.purge(limit=1)
+#
+#     suggestion_channel = bot.get_channel(709728865467105281)
+#     if isinstance(error, commands.CommandNotFound):
+#         await ctx.send("I don't know how to do that yet :/")
+#         await ctx.send(f"If you have any suggestions, you can do so in the {suggestion_channel.mention} channel :p")
 
 # Tasks!!!
 
@@ -128,7 +128,40 @@ async def on_command_error(ctx, error):
 
 @tasks.loop(seconds=60)
 async def change_status():
-    await client.change_presence(activity=discord.Game(next(status)))
+    await bot.change_presence(activity=discord.Game(next(status)))
+
+
+# Cogs!!!
+
+
+# Cogs!!!
+
+
+@bot.command()
+@commands.has_any_role('Big pp')
+async def load(ctx, extension):
+
+    bot.load_extension(f'cogs.{extension}')
+
+
+@bot.command()
+@commands.has_any_role('Big pp')
+async def unload(ctx, extension):
+
+    bot.unload_extension(f'cogs.{extension}')
+
+
+@bot.command()
+@commands.has_any_role('Big pp')
+async def reload(ctx, extension):
+
+    bot.unload_extension(f'cogs.{extension}')
+    bot.load_extension(f'cogs.{extension}')
+
+
+for filename in os.listdir('./cogs'):
+    if filename.endswith('.py'):
+        bot.load_extension(f'cogs.{filename[:-3]}')
 
 
 # Commands!!!
@@ -137,131 +170,24 @@ async def change_status():
 # Commands!!!
 
 
-@client.command()
+@bot.command()
 async def test(ctx):
 
-    await ctx.channel.purge(limit=2)
-    while True:
-        msg = input("Enter message to send: ")
-        if msg == "|":
-            break
-        await ctx.send(msg)
-
-@client.command()
-async def whoami(ctx):
-    await ctx.send(f'{ctx.author} / {ctx.author.mention} / {ctx.author.nickname}')
+    await ctx.send("How'd you discover this? :P")
 
 
-@client.command()
-async def bot_ping(ctx):
-    await ctx.send(f'{client.latency * 1000}ms')
-
-
-@client.command(aliases=['love'])
-async def affection(ctx):
-    hugs = ['༼ つ ◕_◕ ༽つ', '(づ｡◕‿‿◕｡)づ', '(づ￣ ³￣)づ', '༼ つ  ͡° ͜ʖ ͡° ༽つ', '😘',
-            '(ﾉ◕ヮ◕)ﾉ*:･ﾟ✧ ✧ﾟ･: *ヽ(◕ヮ◕ヽ)', '♥‿♥', '😽', '😙', '😚', '\u2665', '\u2764']
-    await ctx.channel.purge(limit=2)
-    await ctx.send(random.choice(hugs))
-
-
-@client.command(aliases=['8ball'])
-async def eight_ball(ctx, *, question):
-
-    answer = ["Yes", "Of course", "Always",
-              "Maybe", "Probably",
-              "No", "Never", "In your dreams!"]
-    await ctx.channel.purge(limit=1)
-    if question == "":
-        await ctx.send(f'Ask me a question. Lmaoooooo')
-    await ctx.send(f'Question: {question}\nAnswer: {random.choice(answer)}')
-
-
-@client.command(aliases=['randomnumber', 'rdmnum'])
-async def random_number(ctx, num1: int, num2: int):
-
-    value = str(random.randint(num1, num2)) + "\n"
-
-    await ctx.channel.purge(limit=1)
-    await ctx.send(value)
-
-
-@client.command()
-async def sort_alphabetically(ctx, *messages):
-
-    print(type(messages))
-    msgs = list(messages)
-    print(type(sorted(msgs)))
-    await ctx.channel.purge(limit=1)
-    for entry in sorted(msgs):
-        await ctx.send(entry)
-
-
-@client.command()
-async def sort_alphabetically_error(ctx, error):
-
-    await ctx.channel.purge(limit=1)
-    if isinstance(error, commands.MissingRequiredArgument):
-        await ctx.send("You forgot to tell me the words you want to sort alphabetically. -,-")
-
-
-@client.command()
-async def reverse(ctx, *, message):
-
-    await ctx.channel.purge(limit=1)
-    msg = ctx.message.content
-    message = msg[10:]
-    await ctx.send(message[::-1])
-
-
-@reverse.error
-async def reverse_error(ctx, error):
-
-    await ctx.channel.purge(limit=1)
-    if isinstance(error, commands.MissingRequiredArgument):
-        await ctx.send("You forgot to tell me what word you want to reverse. -,-")
-
-
-@client.command()
-async def ban(ctx, member: discord.Member):
-
-    await ctx.channel.send(f'Banning {member.mention}...')
-
-
-@client.command()
+@bot.command()
 @commands.has_any_role('Big pp')
 async def give_role(ctx, member: discord.Member, *, role_name):
 
-    guild = discord.utils.get(client.guilds, name="Cotton's Nursery")
+    guild = discord.utils.get(bot.guilds, name="Cotton's Nursery")
     role_id = discord.utils.get(guild.roles, name=role_name)
     await ctx.channel.purge(limit=2)
     await ctx.send(f"Gave {member} a {role_id} role!")
     await member.add_roles(role_id)
 
 
-@client.command()
-async def role(ctx, *, role_name):
-
-    guild = discord.utils.get(client.guilds, name="Cotton's Nursery")
-    role_id = discord.utils.get(guild.roles, name=role_name)
-    await ctx.channel.purge(limit=1)
-    if role_name == "Cardinal" or role_name == "Cardinal" or role_name == "Small pp" or role_name == "Big pp" or role_name == "Pope" or role_name == "Stik" or role_name == "God" or role_name == "Jesus Christ":
-        ctx.send("Not allowed!")
-    else:
-        await ctx.send(f"Gave {ctx.author} a {role_id} role!")
-        await ctx.author.add_roles(role_id)
-
-
-
-@client.command(aliases=['members'])
-async def members_count(message):
-
-    guild_id = client.get_guild(693377457243553873)
-    await message.channel.purge(limit=2)
-    await message.channel.send(f"There are {guild_id.member_count - 4} virgins on this server.")
-
-
-@client.command(aliases=['cuteimg'])
+@bot.command(aliases=['cuteimg'])
 async def cute_image(ctx):
 
     file_names = ['dog0.jpg', 'dog1.jpg', 'dog2.jpg', 'dog3.jpg', 'dog4.jpg'
@@ -275,7 +201,7 @@ async def cute_image(ctx):
     await ctx.send(file=file, embed=embed)
 
 
-@client.command(aliases=['cutevid'])
+@bot.command(aliases=['cutevid'])
 async def cute_video(ctx):
 
     file_names = ['dog0.mp4', 'dog1.mp4', 'dog2.mp4', 'dog3.mp4', 'dog4.mp4'
@@ -289,39 +215,13 @@ async def cute_video(ctx):
     await ctx.send(file=file)
 
 
-@client.command()
-@commands.has_any_role('Big pp')
-async def ping_multiple(ctx, member: discord.Member, loops):
-
-    await ctx.channel.purge(limit=1)
-
-    loopz = int(loops)
-    num = 0
-    while num < loopz+1:
-
-        await ctx.send({member.mention})
-        loopz += 1
-
-
-@client.command()
-async def invite(ctx):
-
-    await ctx.channel.purge(limit=1)
-    await ctx.send('https://discord.com/invite/QrZgbhk')
-
-
-@client.command()
-async def eat_dog(ctx):
-
-    await ctx.send("https://www.youtube.com/watch?v=CgHVNA8olaE")
-
 # Embed-related commands!!!
 
 
 # Embed-related commands!!!
 
 
-@client.command()
+@bot.command()
 @commands.has_any_role('Big pp')
 async def send_embed(ctx):
 
@@ -346,7 +246,7 @@ async def send_embed(ctx):
     await ctx.send(embed=embed)
 
 
-@client.command()
+@bot.command()
 async def first_rule(ctx):
     embed = discord.Embed(title=" ", color=0x00fff9)
     embed.add_field(name="Rule #1:", value="You can joke about anything as long as you don't offend other people."
@@ -355,7 +255,7 @@ async def first_rule(ctx):
     await ctx.send(embed=embed)
 
 
-@client.command()
+@bot.command()
 async def second_rule(ctx):
     embed = discord.Embed(title=" ", color=0x00fff9)
     embed.add_field(name="Rule #2", value="NSFW content is allowed in the appropriate channels.", inline=False)
@@ -363,7 +263,7 @@ async def second_rule(ctx):
     await ctx.send(embed=embed)
 
 
-@client.command()
+@bot.command()
 async def third_rule(ctx):
     embed = discord.Embed(title=" ", color=0x00fff9)
     embed.add_field(name="Rule #3",
@@ -373,7 +273,7 @@ async def third_rule(ctx):
     await ctx.send(embed=embed)
 
 
-@client.command()
+@bot.command()
 async def fourth_rule(ctx):
     embed = discord.Embed(title=" ", color=0x00fff9)
     embed.add_field(name="Rule #4",
@@ -383,7 +283,7 @@ async def fourth_rule(ctx):
     await ctx.send(embed=embed)
 
 
-@client.command()
+@bot.command()
 async def fifth_rule(ctx):
     embed = discord.Embed(title=" ", color=0x00fff9)
     embed.add_field(name="Rule #5", value="You can only advertise your works (video, project, product, etc.) in the advertisement channel.", inline=False)
@@ -391,17 +291,18 @@ async def fifth_rule(ctx):
     await ctx.send(embed=embed)
 
 
-@client.command()
+@bot.command()
 async def sixth_rule(ctx):
     embed = discord.Embed(title=" ", color=0x00fff9)
     embed.add_field(name="Rule #6", value="Swearing is allowed as long as you don't offend anyone.", inline=False)
     await ctx.channel.purge(limit=3)
     await ctx.send(embed=embed)
 
-@client.command()
+
+@bot.command()
 async def poll(ctx, *, message):
     embed = discord.Embed(color=0xffff00)
-    channel = client.get_channel(717715772268609589)
+    channel = bot.get_channel(717715772268609589)
     emoji0 = '👍'
     emoji1 = '👎'
     turtle = "%B %d, %Y"
@@ -412,7 +313,7 @@ async def poll(ctx, *, message):
     await embed_id.add_reaction(emoji1)
 
 
-@client.command()
+@bot.command()
 async def user_info(ctx, member: discord.Member):
 
     embed = discord.Embed(title=" ")
@@ -423,12 +324,10 @@ async def user_info(ctx, member: discord.Member):
     await ctx.send(embed=embed)
 
 
-@client.command()
-async def hamburger(ctx):
-
-    await ctx.channel.purge(limit=1)
-    await ctx.send("https://youtu.be/El1BhIQFMfs")
-    await ctx.send("hambuga chesbuga begmac whapa")
 
 
-client.run('NzEwMDYxMDAzNjY0MjYxMjAx.XtcNLA.bAsYY5ngS2OxpoHNrxJDRQHz3TY')
+
+
+
+
+bot.run('NzEwMDYxMDAzNjY0MjYxMjAx.XtcNLA.bAsYY5ngS2OxpoHNrxJDRQHz3TY')
