@@ -1,4 +1,6 @@
 import discord
+import datetime
+
 from random import choice, randint
 from discord.ext import commands
 
@@ -7,6 +9,27 @@ class Tools(commands.Cog):
 
     def __init__(self, bot):
         self.bot = bot
+
+    @commands.command()
+    async def poll(self, ctx, *, message):
+
+        embed = discord.Embed(color=0xffff00)
+        channel = self.bot.get_channel(717715772268609589)
+        emoji_0 = '👍'
+        emoji_1 = '👎'
+        turtle = "%B %d, %Y"
+        embed.add_field(name=f"Poll created by {ctx.author} on {datetime.date.today().strftime(turtle)}",
+                        value=f"{message}")
+
+        embed_id = await channel.send(embed=embed)
+        await ctx.channel.purge(limit=1)
+        await embed_id.add_reaction(emoji_0)
+        await embed_id.add_reaction(emoji_1)
+
+    @commands.command(aliases=["r/"])
+    async def subreddit(self, ctx, message):
+        await ctx.channel.purge(limit=1)
+        await ctx.send(f"https://www.reddit.com/r/{message}")
 
     @commands.command(aliases=['randomnumber', 'rdmnum'])
     async def random_number(self, ctx, num1: int, num2: int):
@@ -45,6 +68,16 @@ class Tools(commands.Cog):
         await ctx.channel.purge(limit=1)
         if isinstance(error, commands.MissingRequiredArgument):
             await ctx.send("You forgot to tell me what word you want to reverse. -,-")
+
+    @commands.command()
+    async def user_info(self, ctx, member: discord.Member):
+
+        embed = discord.Embed(title=" ")
+        embed.add_field(name="Username", value=f"{member.name}", inline=True)
+        embed.add_field(name="User ID", value=f"{member.id}", inline=True)
+        embed.add_field(name="Join Date", value=f"{member.joined_at}", inline=True)
+        await ctx.channel.purge(limit=1)
+        await ctx.send(embed=embed)
 
 
 def setup(bot):
