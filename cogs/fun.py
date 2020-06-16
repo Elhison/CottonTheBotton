@@ -23,7 +23,7 @@ class Fun(commands.Cog):
                       'dog10.jpg', 'dog11.jpg', 'dog12.jpg', 'dog13.jpg', 'dog14.jpg']
 
         rdm_file = random.choice(file_names)
-        file = discord.File(f"../images/{rdm_file}", filename=rdm_file)
+        file = discord.File(f"./images/{rdm_file}", filename=rdm_file)
         embed = discord.Embed()
         embed.set_image(url=f"attachment://{rdm_file}")
 
@@ -39,7 +39,7 @@ class Fun(commands.Cog):
                       'squirrel0.mp4',
                       'turtle0.mp4']
         rdm_file = random.choice(file_names)
-        file = discord.File(f"../videos/{rdm_file}", filename=rdm_file)
+        file = discord.File(f"./videos/{rdm_file}", filename=rdm_file)
         await ctx.channel.purge(limit=1)
         await ctx.send(file=file)
 
@@ -88,6 +88,10 @@ class Fun(commands.Cog):
             await ctx.send({member.mention})
             loopz += 1
 
+    @commands.command()
+    async def random_song(self, ctx):
+
+        await ctx.channel.purge(limit=1)
 
 def setup(bot):
     bot.add_cog(Fun(bot))

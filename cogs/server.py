@@ -25,7 +25,7 @@ class Server(commands.Cog):
         guild_id = self.bot.get_guild(693377457243553873)
 
         await message.channel.purge(limit=2)
-        await message.channel.send(f"There are {guild_id.member_count - 4} virgins on this server.")
+        await message.channel.send(f"There are {guild_id.member_count - 5} virgins on this server.")
 
 def setup(bot):
     bot.add_cog(Server(bot))

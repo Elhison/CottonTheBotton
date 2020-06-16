@@ -12,14 +12,13 @@ class Roles(commands.Cog):
 
     @commands.command()
     async def send_roles_list(self, ctx):
-
         embed = discord.Embed(title="List of Server Roles", description="(Sorted alphabetically)", color=0x0000ff)
         embed.add_field(name="Math", value="""
             • Algebra
             • Arithmetic
             • Calculus
             • Combinatorics
-            • Discrete
+            • Discrete Math
             • Game Theory
             • Geometry
             • Number Theory
@@ -45,11 +44,19 @@ class Roles(commands.Cog):
             • Zoology""", inline=True)
 
         embed.add_field(name="Technology", value="""
-            • Programming""", inline=True)
+            • Back-end Development
+            • C
+            • C++
+            • Front-end Development
+            • Java
+            • Python
+            
+            """, inline=True)
 
         embed.add_field(name="Humanities", value="""
             • Anthropology
             • Archaeology
+            • Arts
             • Classics
             • History
             • Linguistics
@@ -69,13 +76,22 @@ class Roles(commands.Cog):
             • German
             • Italian
             • Japanese
+            • Korean
+            • Portuguese
+            • Romanian
             • Swedish""", inline=True)
 
-        embed.set_footer(text=f"Last updated: {time.ctime()}")
-        await ctx.send(embed=embed)
+        embed.add_field(name="Classes", value="""
+        • History Class
+        • Linguistics Class
+        • Math Class
+        • Programming Class
+        • Science Class""")
 
+        embed.set_footer(text=f"Last updated: {time.ctime()}")
+        await ctx.channel.purge(limit=2)
+        await ctx.send(embed=embed)
 
 
 def setup(bot):
     bot.add_cog(Roles(bot))
-

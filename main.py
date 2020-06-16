@@ -10,6 +10,7 @@ from discord.ext import commands, tasks
 from itertools import cycle
 
 bot = commands.Bot(command_prefix=commands.when_mentioned_or('69'))
+bot.remove_command("help")
 
 status = cycle([' with your little sister', ' with your brother', ' with your mom',
                 ' with myself', ' with my stepsister', ' with my step brother'])
@@ -27,9 +28,6 @@ async def on_ready():
 @bot.event
 async def on_member_join(member):
 
-    channel = bot.get_channel(705295704251301899)
-    guild = discord.utils.get(bot.guilds, name="Cotton's Nursery")
-    role_id = discord.utils.get(guild.roles, name="Carbon-based life form")
     # Add more welcome stuff
     welcomes = (f'Bienvenue, {member.mention}! Amusez-vous bien! 😘',
                 f'Bienvenu, {member.mention} ! Amusez-vous bien! 😘',
@@ -37,22 +35,42 @@ async def on_member_join(member):
                 f'Wilkommen, {member.mention}!',
                 f'Välkommen, {member.mention}!',
                 f'Tervetuloa, {member.mention}!',
-                f'Bine ai venti, {member.mention}! Să te simți bine aici! 😜')
+                f'Bine ai venti, {member.mention}! Să te simți bine aici! 😜',
+                f'어서오세요, {member.mention}! 여기서 잘 지내세요. 😙',
+                f'Benvenuto, {member.mention}. Goditi la permanenza nel gruppo',
+                f'नमस्ते ,{member.mention}. मज़े करो!')
 
+    user_id = bot.get_user(member.id)
+    guild = discord.utils.get(bot.guilds, name="Cotton's Nursery")
+    role_id = discord.utils.get(guild.roles, name="Possibly A Robot")
+    channel = bot.get_channel(720926112393199616)
+    rdmnum = random.randint(0, 1000000)
     print(f'{member} has joined.')
-    await channel.send(random.choice(welcomes))
+
+    await user_id.send("Heyo! Please read the rules, master! Thank you :3")
     await member.add_roles(role_id)
+    await channel.send(f"{member.mention}, please type `{rdmnum}` to verify that you are a human. Type anything else and I'll boot you.")
+    print(f"{member.mention} ; {rdmnum} ; {discord.Message}")
+    if discord.Message == rdmnum:
+        await channel.send("Test")
+    # await channel.purge(limit=100000)
+    channel = bot.get_channel(705295704251301899)
+    await channel.send(f"{random.choice(welcomes)}")
+    await user_id.send("Assign yourself a role using `69role <role_name`>. You can find the list of roles in ")
+    print("DONE!!!")
 
 
 @bot.event
 async def on_member_remove(member):
     # Add more farewells
     channel = bot.get_channel(713995293833822208)
-    farewells = (f'Goodbye, {member.name}/{member.id}. We will miss you! :(',
-                 f'Auf Wiedersehen, {member.name}/{member.id}. :(',
-                 f'Farväl, {member.name}/{member.id}. :(',
-                 f'Jäähyväiset, {member.name}/{member.id}. :(',
-                 f'La revedere, {member.name}/{member.id}. O să te lipsim.')
+    farewells = (f'Goodbye, {member.mention}/{member.id}. We will miss you! :(',
+                 f'Auf Wiedersehen, {member.mention}/{member.id}. :(',
+                 f'Farväl, {member.mention}/{member.id}. :(',
+                 f'Jäähyväiset, {member.mention}/{member.id}. :(',
+                 f'La revedere, {member.mention}/{member.id}. O să te lipsim.',
+                 f'잘 가세요, {member.mention}. 우리는 당신이 그리울 거예요:(',
+                 f'अलविदा {member.mention}/{member.id}, हम आपको याद करेंगे')
 
     print(f'{member} has left.')
     await channel.send(random.choice(farewells))
@@ -60,67 +78,84 @@ async def on_member_remove(member):
 
 @bot.event
 async def on_message(message):
-    bad_words = ('dumb', 'stupid', 'ugly')
+    if not message.author.bot:
 
-    if message.content.startswith("69"):
+        bad_words = ('dumb', 'stupid', 'ugly')
 
-        await message.channel.send("nice.")
+        guild = discord.utils.get(bot.guilds, name="Cotton's Nursery")
 
-    elif "hamburger" in message.content.lower():
+        if guild is None:
 
-        await message.channel.send("https://youtu.be/El1BhIQFMfs")
+            # code
+            pass
 
-    elif "turtles" in message.content.lower() or "turtle" in message.content.lower():
+        elif message.content.startswith("69"):
 
-        emoji = "\U0001F422"
-        await message.add_reaction(emoji)
+            await message.channel.send("nice.")
 
-    elif message.content.startswith(f"turtles are {bad_words}"):
+        elif "hamburger" in message.content.lower():
 
-        await message.channel.send("no u")
+            await message.channel.send("https://youtu.be/El1BhIQFMfs")
 
-    elif message.content.startswith("fuck you") or message.content.startswith("Fuck you"):
+        elif message.content.startswith("Josh") or message.content.startswith("josh"):
 
-        await message.channel.send("No thanks :p")
+            await message.channel.send("hi")
 
-    elif message.content.startswith("fuck") or message.content.startswith("Fuck"):
+        elif "turtles" in message.content.lower() or "turtle" in message.content.lower():
 
-        await message.channel.send("you.")
+            emoji = "\U0001F422"
+            await message.add_reaction(emoji)
 
-    elif "shit" in message.content.lower():
+        elif message.content.startswith(f"turtles are {bad_words}"):
 
-        await message.add_reaction("\U0001F4A9")
+            await message.channel.send("no u")
 
-    elif "linux" in message.content.lower():
+        elif message.content.startswith("fuck you") or message.content.startswith("Fuck you"):
 
-        await message.channel.send("i use arch, btw")
+            await message.channel.send("No thanks :p")
 
-    elif "bitch" in message.content.lower():
+        elif message.content.startswith("fuck") or message.content.startswith("Fuck"):
 
-        await message.add_reaction("♀")
-        await message.add_reaction("🐕")
+            await message.channel.send("you.")
 
-    elif "motherfucker" in message.content.lower():
+        elif "shit" in message.content.lower():
 
-        await message.channel.send("I will fuck your mother too!")
+            await message.add_reaction("\U0001F4A9")
 
-    else:
-        pass
+        elif "linux" in message.content.lower():
 
-    await bot.process_commands(message)
+            await message.channel.send("i use arch, btw")
+
+        elif "bitch" in message.content.lower():
+
+            await message.add_reaction("♀")
+            await message.add_reaction("🐕")
+
+        elif "motherfucker" in message.content.lower():
+
+            await message.channel.send("I will fuck your mother too!")
+
+        else:
+            pass
+
+        await bot.process_commands(message)
 
 
 @bot.event
 async def on_command_error(ctx, error):
 
     user_id = bot.get_user(354568022977019906)
+    suggestion_channel = bot.get_channel(709728865467105281)
 
     await ctx.channel.purge(limit=1)
 
-    suggestion_channel = bot.get_channel(709728865467105281)
     if isinstance(error, commands.CommandNotFound):
-        await ctx.send("I don't know how to do that yet :/")
+        await ctx.send("CommandNotFound error. I don't know how to do that yet :/")
         await ctx.send(f"If you have any suggestions, you can do so in the {suggestion_channel.mention} channel :p")
+
+    elif isinstance(error, commands.MissingRequiredArgument):
+        await ctx.send("MissingRequiredArgument error. Are you sure you're using the command correctly?")
+
     else:
         await ctx.send(f"An error probably occurred. Ask @{user_id} for any errors or shit.")
 

@@ -67,8 +67,9 @@ class Rules(commands.Cog):
 
     @commands.command()
     @commands.has_any_role('Big pp')
-    async def send_rules(self, ctx):
-        await ctx.channel.purge(limit=1)
+    async def send_rules_list(self, ctx):
+        nsfw_channel = self.bot.get_channel(713952790971678812)
+        await ctx.channel.purge(limit=2)
 
         embed = discord.Embed(title="Server Rules:", color=0x00fff9)
         embed.add_field(name="Rule #1",
@@ -91,6 +92,12 @@ class Rules(commands.Cog):
                         inline=False)
 
         embed.add_field(name="Rule #6", value="Swearing is allowed as long as you don't offend anyone.",
+                        inline=False)
+
+        embed.add_field(name="Rule #7", value="Nationalism is strictly banned.",
+                        inline=False)
+
+        embed.add_field(name="Rule #8", value=f"Sex-related content go to {nsfw_channel.mention}.",
                         inline=False)
 
         embed.set_footer(text=f"Rules are bound to change. We will notify you.\nLast updated: {time.ctime()}")
