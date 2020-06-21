@@ -13,7 +13,7 @@ class Self(commands.Cog):
         guild = discord.utils.get(self.bot.guilds, name="Cotton's Nursery")
         role_id = discord.utils.get(guild.roles, name=role_name)
         await ctx.channel.purge(limit=1)
-        if role_name == "Cardinal" or role_name == "Cardinal" or role_name == "Small pp" or role_name == "Big pp" or role_name == "Pope" or role_name == "Stik" or role_name == "God" or role_name == "Jesus Christ":
+        if role_name == "KGB spy" or role_name == "Cardinal" or role_name == "Small pp" or role_name == "Big pp" or role_name == "Pope (entshuldigung)" or role_name == "Pyrocynical's Brother" or role_name == "God" or role_name == "Jesus Christ":
             ctx.send("Not allowed!")
         else:
             await ctx.send(f"Gave {ctx.author} a {role_id} role!")

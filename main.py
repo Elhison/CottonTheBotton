@@ -40,24 +40,15 @@ async def on_member_join(member):
                 f'Benvenuto, {member.mention}. Goditi la permanenza nel gruppo',
                 f'नमस्ते ,{member.mention}. मज़े करो!')
 
-    user_id = bot.get_user(member.id)
-    guild = discord.utils.get(bot.guilds, name="Cotton's Nursery")
-    role_id = discord.utils.get(guild.roles, name="Possibly A Robot")
-    channel = bot.get_channel(720926112393199616)
-    rdmnum = random.randint(0, 1000000)
+    guild = member.guild
+    role_id = discord.utils.get(guild.roles, name="Unverified")
+    channel = bot.get_channel(705295704251301899)
     print(f'{member} has joined.')
 
-    await user_id.send("Heyo! Please read the rules, master! Thank you :3")
+    await member.send("Heyo! Please read the rules, master. Thank you :3")
+    await member.send("Ask any of the Cardinals, Pope, or Stik to give you the \"Carbon-based life form role.\"")
     await member.add_roles(role_id)
-    await channel.send(f"{member.mention}, please type `{rdmnum}` to verify that you are a human. Type anything else and I'll boot you.")
-    print(f"{member.mention} ; {rdmnum} ; {discord.Message}")
-    if discord.Message == rdmnum:
-        await channel.send("Test")
-    # await channel.purge(limit=100000)
-    channel = bot.get_channel(705295704251301899)
     await channel.send(f"{random.choice(welcomes)}")
-    await user_id.send("Assign yourself a role using `69role <role_name`>. You can find the list of roles in ")
-    print("DONE!!!")
 
 
 @bot.event
@@ -78,19 +69,11 @@ async def on_member_remove(member):
 
 @bot.event
 async def on_message(message):
+
+    bad_words = ('dumb', 'stupid', 'ugly')
     if not message.author.bot:
 
-        bad_words = ('dumb', 'stupid', 'ugly')
-
-        guild = discord.utils.get(bot.guilds, name="Cotton's Nursery")
-
-        if guild is None:
-
-            # code
-            pass
-
-        elif message.content.startswith("69"):
-
+        if message.content.startswith("69"):
             await message.channel.send("nice.")
 
         elif "hamburger" in message.content.lower():
@@ -135,11 +118,18 @@ async def on_message(message):
 
             await message.channel.send("I will fuck your mother too!")
 
+        elif "rasengan" in message.content.lower():
+
+            await message.channel.send("Chidori!")
+
+        elif "chidori" in message.content.lower():
+
+            await message.channel.send("Rasengan!")
+
         else:
             pass
 
-        await bot.process_commands(message)
-
+    await bot.process_commands(message)
 
 @bot.event
 async def on_command_error(ctx, error):
