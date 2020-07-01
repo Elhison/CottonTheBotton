@@ -5,6 +5,7 @@ import random
 import datetime
 import time
 import os
+# import newuser
 
 from discord.ext import commands, tasks
 from itertools import cycle
@@ -41,15 +42,23 @@ async def on_member_join(member):
                 f'नमस्ते ,{member.mention}. मज़े करो!')
 
     guild = member.guild
-    role_id = discord.utils.get(guild.roles, name="Unverified")
+    unverified_role = discord.utils.get(guild.roles, name="Unverified")
     channel = bot.get_channel(705295704251301899)
+    rules_channel = bot.get_channel(705296662914138215)
+    roles_list_channel = bot.get_channel(712521240052498444)
     print(f'{member} has joined.')
 
-    await member.send("Heyo! Please read the rules, master. Thank you :3")
-    await member.send("Ask any of the Cardinals, Pope, or Stik to give you the \"Carbon-based life form role.\"")
-    await member.add_roles(role_id)
+    embed = discord.Embed(title="Welcome to the server! uwu", description="| (• ◡•)|   (❍ᴥ❍ʋ)")
+    embed.add_field(name="Please read the rules, master. Thank you :3", value=f"{rules_channel.mention}", inline=True)
+    embed.add_field(name="Ask any of the Cardinals, the Pope, or Pyrocynical's Brother to give you the \"Carbon-based life form role.\"", value="I chose not to have an automatic verification system because it's vulnerable to bot raids. Thank you for your patience.", inline=True)
+    
+    
+    await member.send(embed=embed)
+    await member.add_roles(unverified_role)
     await channel.send(f"{random.choice(welcomes)}")
 
+    # embed = discord.Embed(title="Congrats! You're not a robot!", description="Here are some features that you now have access to:")
+    # embed.add_field(name="You can now assign yourself some awesome roles!", value=f"{roles_list_channel.mention}", inline=True)
 
 @bot.event
 async def on_member_remove(member):
@@ -142,12 +151,16 @@ async def on_command_error(ctx, error):
     if isinstance(error, commands.CommandNotFound):
         await ctx.send("CommandNotFound error. I don't know how to do that yet :/")
         await ctx.send(f"If you have any suggestions, you can do so in the {suggestion_channel.mention} channel :p")
+        print(error)
 
     elif isinstance(error, commands.MissingRequiredArgument):
         await ctx.send("MissingRequiredArgument error. Are you sure you're using the command correctly?")
+        print(error)
 
     else:
         await ctx.send(f"An error probably occurred. Ask @{user_id} for any errors or shit.")
+        print(error)
+        
 
 
 # Tasks!!!
@@ -187,7 +200,7 @@ async def reload(ctx, extension):
 
     bot.unload_extension(f'cogs.{extension}')
     bot.load_extension(f'cogs.{extension}')
-
+    print(f"{extension} cog reloaded!")
 
 for filename in os.listdir('./cogs'):
     if filename.endswith('.py'):
