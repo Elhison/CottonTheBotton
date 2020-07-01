@@ -88,6 +88,11 @@ class Roles(commands.Cog):
         • Programming Class
         • Science Class""")
 
+        embed.add_field(name="Countries", value="""
+        • There are a total of 257 countries. 
+        • I'm not gonna list all of them here. Lol.
+        """)
+
         embed.set_footer(text=f"Last updated: {time.ctime()}")
         await ctx.channel.purge(limit=2)
         await ctx.send(embed=embed)

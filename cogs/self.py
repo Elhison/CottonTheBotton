@@ -10,7 +10,7 @@ class Self(commands.Cog):
     @commands.command()
     async def role(self, ctx, *, role_name):
 
-        guild = discord.utils.get(self.bot.guilds, name="Cotton's Nursery")
+        guild = discord.utils.get(self.bot.guilds, name="Cotton Education Center")
         role_id = discord.utils.get(guild.roles, name=role_name)
         await ctx.channel.purge(limit=1)
         if role_name == "KGB spy" or role_name == "Cardinal" or role_name == "Small pp" or role_name == "Big pp" or role_name == "Pope (entshuldigung)" or role_name == "Pyrocynical's Brother" or role_name == "God" or role_name == "Jesus Christ":
