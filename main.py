@@ -198,6 +198,8 @@ async def unload(ctx, extension):
 @commands.has_any_role('Big pp')
 async def reload(ctx, extension):
 
+    await ctx.channel.purge(limit=1)
+    
     bot.unload_extension(f'cogs.{extension}')
     bot.load_extension(f'cogs.{extension}')
     print(f"{extension} cog reloaded!")

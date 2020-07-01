@@ -45,5 +45,32 @@ class Scrapper(commands.Cog):
         await ctx.channel.purge(limit=1)
         await ctx.send(embed=embed)
 
+    @commands.command()
+    async def stock_price(self, ctx, company_name):
+        
+        await ctx.channel.purge(limit=1)
+
+        req = requests.get(f"https://money.cnn.com/quote/quote.html?symb={company_name}")
+        source = req.content
+        src = BeautifulSoup(source, 'html.parser')
+
+        stock_price_broad = src.find(class_="wsod_last")
+        stock_price = stock_price_broad.find("span")
+
+        price_change = src.find(class_="posData")
+
+        cmpny_name = src.find(class_="wsod_fLeft")
+
+        last_updated_potato = src.find(class_="wsod_quoteLabelAsOf") # Start with the sixth index
+        last_updated_pot = last_updated_potato.get_text()
+        last_updated = last_updated_pot[6:]
+
+        embed = discord.Embed(title=f"{company_name} Stock Information", description = f"{cmpny_name.get_text()}", )
+        embed.add_field(name=f"Stock price as of {last_updated}", value=f"${stock_price.get_text()}")
+        embed.add_field(name=f"Today's change: ", value=f"{price_change.get_text()}")
+        embed.set_footer(text="Stock data acquired from https://money.cnn.com (◕‿◕✿)")
+
+        await ctx.send(embed=embed)
+
 def setup(bot):
     bot.add_cog(Scrapper(bot))

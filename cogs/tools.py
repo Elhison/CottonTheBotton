@@ -30,6 +30,8 @@ class Tools(commands.Cog):
     async def subreddit(self, ctx, message):
         await ctx.channel.purge(limit=1)
         await ctx.send(f"https://www.reddit.com/r/{message}")
+        await ctx.send("Hey! Reddit sucks now. It's biased, pro-CCP, and anti-freespeech. Switch to Ruqqus!")
+        await ctx.send("What's Ruqqus? Type `69whatisruqqus` to know what Ruqqus is!")
 
     @commands.command(aliases=['randomnumber', 'rdmnum'])
     async def random_number(self, ctx, num1: int, num2: int):
@@ -78,6 +80,11 @@ class Tools(commands.Cog):
         embed.add_field(name="Join Date", value=f"{member.joined_at}", inline=True)
         await ctx.channel.purge(limit=1)
         await ctx.send(embed=embed)
+
+    @commands.command()
+    async def whatisruqqus(self, ctx):
+
+        pass
 
 
 def setup(bot):
