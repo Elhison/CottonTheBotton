@@ -39,6 +39,7 @@ class Scrapper(commands.Cog):
         src = result.content
         soup = BeautifulSoup(src, 'html.parser')
         total_population = soup.find(id="cp1")
+        
         embed = discord.Embed(title="World population", description="Make more babies! :3")
         embed.add_field(name=f"World Population:", value=f"{total_population.get_text()}")
 
@@ -61,7 +62,7 @@ class Scrapper(commands.Cog):
 
         cmpny_name = src.find(class_="wsod_fLeft")
 
-        last_updated_potato = src.find(class_="wsod_quoteLabelAsOf") # Start with the sixth index
+        last_updated_potato = src.find(class_="wsod_quoteLabelAsOf")
         last_updated_pot = last_updated_potato.get_text()
         last_updated = last_updated_pot[6:]
 

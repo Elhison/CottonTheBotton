@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/local/python
 
 import discord
 import random
@@ -151,10 +151,6 @@ async def on_command_error(ctx, error):
     if isinstance(error, commands.CommandNotFound):
         await ctx.send("CommandNotFound error. I don't know how to do that yet :/")
         await ctx.send(f"If you have any suggestions, you can do so in the {suggestion_channel.mention} channel :p")
-        print(error)
-
-    elif isinstance(error, commands.MissingRequiredArgument):
-        await ctx.send("MissingRequiredArgument error. Are you sure you're using the command correctly?")
         print(error)
 
     else:

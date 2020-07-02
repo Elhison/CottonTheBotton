@@ -33,7 +33,7 @@ class Tools(commands.Cog):
         await ctx.send("Hey! Reddit sucks now. It's biased, pro-CCP, and anti-freespeech. Switch to Ruqqus!")
         await ctx.send("What's Ruqqus? Type `69whatisruqqus` to know what Ruqqus is!")
 
-    @commands.command(aliases=['randomnumber', 'rdmnum'])
+    @commands.command(aliases=['randomnumber', 'rdmnum', 'randomnum'])
     async def random_number(self, ctx, num1: int, num2: int):
 
         value = str(randint(num1, num2)) + "\n"
@@ -80,6 +80,17 @@ class Tools(commands.Cog):
         embed.add_field(name="Join Date", value=f"{member.joined_at}", inline=True)
         await ctx.channel.purge(limit=1)
         await ctx.send(embed=embed)
+    
+    @user_info.error
+    async def user_info_error(self, ctx, error):
+
+        await ctx.channel.purge(limit=1)
+
+        if isinstance(error, commands.MissingRequiredArgument):
+            await ctx.send("Who do you want to know more about?")
+
+        elif isinstance(error, discord.NotFound):
+            await ctx.send("Member not found!")
 
     @commands.command()
     async def whatisruqqus(self, ctx):
