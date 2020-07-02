@@ -140,6 +140,8 @@ async def on_message(message):
 
     await bot.process_commands(message)
 
+# Wtf. This piece of shit ruins..!
+
 @bot.event
 async def on_command_error(ctx, error):
 

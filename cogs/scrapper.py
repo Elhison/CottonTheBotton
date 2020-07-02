@@ -1,5 +1,6 @@
 import discord
 import requests
+import wikipedia
 
 from discord.ext import commands
 from bs4 import BeautifulSoup
@@ -32,6 +33,31 @@ class Scrapper(commands.Cog):
         await ctx.channel.purge(limit=1)
         await ctx.send(embed=embed)
 
+
+    @commands.command()
+    async def discord(self, ctx, arg_shit=None):
+        if arg_shit is None:
+            ctx.send("")
+        
+        elif arg_shit.lower() == "tos" or arg_shit.lower() == "termsofservice":
+            ctx.send("")
+            
+
+    @commands.command()
+    async def wikipedia_scrapper(self, ctx, function):
+
+        if function == "search":
+            ctx.send(wikipedia.search(function))
+
+        elif function == "suggest":
+            ctx.send(wikipedia.suggest(function))
+
+        elif function == "random":
+            ctx.send(wikipedia.random(5))
+
+        elif function == "summary":
+            ctx.send(wikipedia.summary(function))
+            
     @commands.command()
     async def world_population(self, ctx):
 
@@ -45,6 +71,7 @@ class Scrapper(commands.Cog):
 
         await ctx.channel.purge(limit=1)
         await ctx.send(embed=embed)
+
 
     @commands.command()
     async def stock_price(self, ctx, company_name):
@@ -72,6 +99,7 @@ class Scrapper(commands.Cog):
         embed.set_footer(text="Stock data acquired from https://money.cnn.com (◕‿◕✿)")
 
         await ctx.send(embed=embed)
+
 
 def setup(bot):
     bot.add_cog(Scrapper(bot))
