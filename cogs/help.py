@@ -10,7 +10,9 @@ class Help(commands.Cog):
     @commands.command()
     async def help(self, ctx):
 
-        await ctx.send(":P")
+        bot_spam_channel = bot.get_channel(709669976390500422)
+
+        await ctx.bot_spam_channel.send("HELP!")
 
 
 def setup(bot):

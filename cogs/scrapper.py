@@ -36,15 +36,33 @@ class Scrapper(commands.Cog):
 
     @commands.command()
     async def discord(self, ctx, arg_shit=None):
+
         if arg_shit is None:
-            await ctx.send("")
+            await ctx.send(wikipedia.summary("Discord__(software)"))
         
+
         elif arg_shit.lower() == "tos" or arg_shit.lower() == "termsofservice":
-            await ctx.send("")
+            await ctx.send("https://discord.com/new/terms")
 
 
+        elif arg_shit.lower() == "privacypolicy" or arg_shit.lower() == "privacy":
+            await ctx.send("https://discord.com/new/privacy")
+            
+
+        elif arg_shit.lower() == "communityguidelines" or arg_shit.lower() == "community" or arg_shit.lower() == "cg":
+            
+            await ctx.send("https://discord.com/new/guidelines")
+
+        else:
+            
+            await ctx.send("Discord is kewl.")
+
+
+# This function is a fucking work in progress!
     @commands.command()
     async def wikipedia_scrapper(self, ctx, function):
+        
+        # wiki_embed = discord.Embed(name="Wikisays...")
 
         if function == "search":
             await ctx.send(wikipedia.search(function))
@@ -58,6 +76,7 @@ class Scrapper(commands.Cog):
         elif function == "summary":
             await ctx.send(wikipedia.summary(function))
             
+
     @commands.command()
     async def world_population(self, ctx):
 

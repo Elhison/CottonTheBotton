@@ -8,7 +8,7 @@ class Server(commands.Cog):
         self.bot = bot
 
     @commands.command()
-    async def ping(self, ctx):
+    async def bot_ping(self, ctx):
 
         await ctx.send(f'{self.bot.latency * 1000}ms')
 

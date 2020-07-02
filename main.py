@@ -52,7 +52,6 @@ async def on_member_join(member):
     embed.add_field(name="Please read the rules, master. Thank you :3", value=f"{rules_channel.mention}", inline=True)
     embed.add_field(name="Ask any of the Cardinals, the Pope, or Pyrocynical's Brother to give you the \"Carbon-based life form role.\"", value="I chose not to have an automatic verification system because it's vulnerable to bot raids. Thank you for your patience.", inline=True)
     
-    
     await member.send(embed=embed)
     await member.add_roles(unverified_role)
     await channel.send(f"{random.choice(welcomes)}")
