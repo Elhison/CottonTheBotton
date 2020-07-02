@@ -37,26 +37,26 @@ class Scrapper(commands.Cog):
     @commands.command()
     async def discord(self, ctx, arg_shit=None):
         if arg_shit is None:
-            ctx.send("")
+            await ctx.send("")
         
         elif arg_shit.lower() == "tos" or arg_shit.lower() == "termsofservice":
-            ctx.send("")
-            
+            await ctx.send("")
+
 
     @commands.command()
     async def wikipedia_scrapper(self, ctx, function):
 
         if function == "search":
-            ctx.send(wikipedia.search(function))
+            await ctx.send(wikipedia.search(function))
 
         elif function == "suggest":
-            ctx.send(wikipedia.suggest(function))
+            await ctx.send(wikipedia.suggest(function))
 
         elif function == "random":
-            ctx.send(wikipedia.random(5))
+            await ctx.send(wikipedia.random(5))
 
         elif function == "summary":
-            ctx.send(wikipedia.summary(function))
+            await ctx.send(wikipedia.summary(function))
             
     @commands.command()
     async def world_population(self, ctx):
