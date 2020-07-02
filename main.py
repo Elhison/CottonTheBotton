@@ -214,4 +214,4 @@ async def test(ctx):
 
     await ctx.send("How'd you discover this? :P")
 
-bot.run('NzEwMDYxMDAzNjY0MjYxMjAx.XtcNLA.bAsYY5ngS2OxpoHNrxJDRQHz3TY')
+bot.run('NzEwMDYxMDAzNjY0MjYxMjAx.Xv0raw.AtFldn0QCjBu2KgRxz9-1YrLYe8')
