@@ -11,10 +11,9 @@ from discord.ext import commands, tasks
 from itertools import cycle
 
 bot = commands.Bot(command_prefix=commands.when_mentioned_or('69'))
-bot.remove_command("help")
 
 status = cycle([' with your little sister', ' with your brother', ' with your mom',
-                ' with myself', ' with my stepsister', ' with my step brother'])
+                ' with myself', ' with my stepsister', ' with my step brother', 'with you'])
 
 print("Booting...")
 
@@ -39,7 +38,8 @@ async def on_member_join(member):
                 f'Bine ai venti, {member.mention}! Să te simți bine aici! 😜',
                 f'어서오세요, {member.mention}! 여기서 잘 지내세요. 😙',
                 f'Benvenuto, {member.mention}. Goditi la permanenza nel gruppo',
-                f'नमस्ते ,{member.mention}. मज़े करो!')
+                f'नमस्ते ,{member.mention}. मज़े करो!',
+                f'Vitaj, {member.mention} Uži si pobyt.')
 
     guild = member.guild
     unverified_role = discord.utils.get(guild.roles, name="Unverified")
@@ -69,7 +69,8 @@ async def on_member_remove(member):
                  f'Jäähyväiset, {member.mention}/{member.id}. :(',
                  f'La revedere, {member.mention}/{member.id}. O să te lipsim.',
                  f'잘 가세요, {member.mention}. 우리는 당신이 그리울 거예요:(',
-                 f'अलविदा {member.mention}/{member.id}, हम आपको याद करेंगे')
+                 f'अलविदा {member.mention}/{member.id}, हम आपको याद करेंगे',
+                 f'Dovidenia {member.mention} Budeš nám chýbať')
 
     print(f'{member} has left.')
     await channel.send(random.choice(farewells))
@@ -105,7 +106,7 @@ async def on_message(message):
 
             await message.channel.send("No thanks :p")
 
-        elif message.content.startswith("fuck") or message.content.startswith("Fuck"):
+        elif message.content.startswith("fuck") or message.content.startswith("Fuck") or message.content.startswith("FUCK"):
 
             await message.channel.send("you.")
 
