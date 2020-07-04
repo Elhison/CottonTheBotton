@@ -19,7 +19,7 @@ class Scrapper(commands.Cog):
         src = result.content
         soup = BeautifulSoup(src, 'html.parser')
         total_cases = soup.find(class_="first-count")
-        death_cases_broad = soup.find("h2")
+        death_cases_broad = soup.find(class_="second-count mt-large")
         death_cases = death_cases_broad.find(class_="red-text")
         recovery_cases = soup.find(class_="green-text")
 
