@@ -46,31 +46,29 @@ async def on_member_join(member):
     channel = bot.get_channel(705295704251301899)
     rules_channel = bot.get_channel(705296662914138215)
     roles_list_channel = bot.get_channel(712521240052498444)
+    bot_spam_channel = bot.get_channel(709669976390500422)
     print(f'{member} has joined.')
 
     embed = discord.Embed(title="Welcome to the server! uwu", description="| (• ◡•)|   (❍ᴥ❍ʋ)")
     embed.add_field(name="Please read the rules, master. Thank you :3", value=f"{rules_channel.mention}", inline=True)
     embed.add_field(name="Ask any of the Cardinals, the Pope, or Pyrocynical's Brother to give you the \"Carbon-based life form role.\"", value="I chose not to have an automatic verification system because it's vulnerable to bot raids. Thank you for your patience.", inline=True)
-    
+    embed.add_field(name="When you get verified,", value=f"assign yourself some rules by typing `69role <role name>` in {bot_spam_channel.mention}", inline=True)
     await member.send(embed=embed)
     await member.add_roles(unverified_role)
     await channel.send(f"{random.choice(welcomes)}")
-
-    # embed = discord.Embed(title="Congrats! You're not a robot!", description="Here are some features that you now have access to:")
-    # embed.add_field(name="You can now assign yourself some awesome roles!", value=f"{roles_list_channel.mention}", inline=True)
 
 @bot.event
 async def on_member_remove(member):
     # Add more farewells
     channel = bot.get_channel(713995293833822208)
-    farewells = (f'Goodbye, {member.mention}/{member.id}. We will miss you! :(',
-                 f'Auf Wiedersehen, {member.mention}/{member.id}. :(',
-                 f'Farväl, {member.mention}/{member.id}. :(',
-                 f'Jäähyväiset, {member.mention}/{member.id}. :(',
-                 f'La revedere, {member.mention}/{member.id}. O să te lipsim.',
-                 f'잘 가세요, {member.mention}. 우리는 당신이 그리울 거예요:(',
-                 f'अलविदा {member.mention}/{member.id}, हम आपको याद करेंगे',
-                 f'Dovidenia {member.mention} Budeš nám chýbať')
+    farewells = (f'Goodbye, {member}/{member.id}. We will miss you! :(',
+                 f'Auf Wiedersehen, {member}/{member.id}. :(',
+                 f'Farväl, {member}/{member.id}. :(',
+                 f'Jäähyväiset, {member}/{member.id}. :(',
+                 f'La revedere, {member}/{member.id}. O să te lipsim.',
+                 f'잘 가세요, {member}. 우리는 당신이 그리울 거예요:(',
+                 f'अलविदा {member}/{member.id}, हम आपको याद करेंगे',
+                 f'Dovidenia {member}/{member.id} Budeš nám chýbať')
 
     print(f'{member} has left.')
     await channel.send(random.choice(farewells))
