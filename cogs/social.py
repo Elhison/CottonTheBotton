@@ -1,7 +1,7 @@
 import discord
 import time
+import random
 
-from random import choice, randint
 from discord.ext import commands
 
 
