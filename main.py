@@ -95,17 +95,13 @@ async def on_message(message):
             emoji = "\U0001F422"
             await message.add_reaction(emoji)
 
-        elif message.content.startswith(f"turtles are {bad_words}"):
-
-            await message.channel.send("no u")
-
         elif message.content.startswith("fuck you") or message.content.startswith("Fuck you"):
 
             await message.channel.send("No thanks :p")
 
-        elif message.content.startswith("fuck") or message.content.startswith("Fuck") or message.content.startswith("FUCK"):
+        elif message.content.startswith("fuck") and not message.content.startswith("fucking") or message.content.startswith("Fuck") and not message.content.startswith("Fucking") or message.content.startswith("FUCK") and not message.content.startswith("FUCKING"):
 
-            await message.channel.send("you.")
+            await message.channel.send("you. :3")
 
         elif "shit" in message.content.lower():
 

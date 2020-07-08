@@ -122,17 +122,52 @@ class Scrapper(commands.Cog):
 
 
     @commands.command()
-    async def reddit(self, ctx):
+    async def reddit(self, ctx, subreddit, num_posts, sort_type):
         reddit = praw.Reddit(client_id='ZmZfg7b7KpDSRA',
                      client_secret='0bTvf-0ImHnnCdcqobI_GvlHBP4',
                      user_agent='USER_AGENT HERE')
 
-        memes_submissions = reddit.subreddit('memes').hot()
-        post_to_pick = random.randint(1, 10)
-        for i in range(0, post_to_pick):
-            submission = next(x for x in memes_submissions if not x.stickied)
+        if num_posts == 1:
 
-        await ctx.send(submission.url)
+            post_to_pick = random.randint(1, 10)
+
+            for i in range(0, post_to_pick):
+                submission = next(x for x in posts if not x.stickied)
+
+            embed = discord.Embed(title=f"{submission.title}", description=f"{submission.score}")
+            embed.add_field(name=f"{submission.url}", value=" ", inline=True)
+
+            await ctx.send(embed=embed)
+        
+        elif num_posts <= 0:
+            await ctx.send("-,-")
+
+        embed = discord.Embed(title=f"{submission.title}")
+
+        if sort_type == "controversial":
+            posts = reddit.subreddit(subreddit).controversial()
+
+        elif sort_type == "gilded":
+            posts = reddit.subreddit(subreddit).gilded()
+
+        elif sort_type == "hot":
+            posts = reddit.subreddit(subreddit).hot()
+
+        elif sort_type == "new":
+            posts = reddit.subreddit(subreddit).new()
+
+        elif sort_type == "rising":
+            posts = reddit.subreddit(subreddit).rising()
+
+        elif sort_type == "top":
+            posts = reddit.subreddit(subreddit).top()
+
+        else:
+            await ctx.send("You only have 6 options: `controversial`, `gilded`, `hot`, `new`, `rising`, and `top`.")
+        
+        
+
+        
 
 
 
