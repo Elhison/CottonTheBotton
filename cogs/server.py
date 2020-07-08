@@ -9,7 +9,8 @@ class Server(commands.Cog):
 
     @commands.command()
     async def ping(self, ctx):
-
+        
+        await ctx.channel.purge(limit=1)
         await ctx.send(f'{self.bot.latency * 1000}ms')
 
     @commands.command()

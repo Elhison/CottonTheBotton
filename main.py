@@ -57,6 +57,7 @@ async def on_member_join(member):
     await member.add_roles(unverified_role)
     await channel.send(f"{random.choice(welcomes)}")
 
+
 @bot.event
 async def on_member_remove(member):
     # Add more farewells
@@ -206,6 +207,6 @@ for filename in os.listdir('./cogs'):
 @bot.command()
 async def test(ctx):
 
-    await ctx.send("How'd you discover this? :P")
+    await ctx.send(bot.all_commands)
 
 bot.run('NzEwMDYxMDAzNjY0MjYxMjAx.Xv0raw.AtFldn0QCjBu2KgRxz9-1YrLYe8')
