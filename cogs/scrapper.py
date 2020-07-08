@@ -134,8 +134,9 @@ class Scrapper(commands.Cog):
             for i in range(0, post_to_pick):
                 submission = next(x for x in posts if not x.stickied)
 
+            post_author = submission.author
             embed = discord.Embed(title=f"{submission.title}", description=f"{submission.score}")
-            embed.add_field(name=f"{submission.url}", value=" ", inline=True)
+            embed.add_field(name=f"{submission.url}", value=f"{post_author.name}", inline=True)
 
             await ctx.send(embed=embed)
 
@@ -146,8 +147,9 @@ class Scrapper(commands.Cog):
             for i in range(0, post_to_pick):
                 submission = next(x for x in posts if not x.stickied)
 
+            post_author = submission.author
             embed = discord.Embed(title=f"{submission.title}", description=f"{submission.score}")
-            embed.add_field(name=f"{submission.url}", value=" ", inline=True)
+            embed.add_field(name=f"{submission.url}", value=f"{post_author.name}", inline=True)
 
             await ctx.send(embed=embed)
 
@@ -158,8 +160,9 @@ class Scrapper(commands.Cog):
             for i in range(0, post_to_pick):
                 submission = next(x for x in posts if not x.stickied)
 
+            post_author = submission.author
             embed = discord.Embed(title=f"{submission.title}", description=f"{submission.score}")
-            embed.add_field(name=f"{submission.url}", value=" ", inline=True)
+            embed.add_field(name=f"{submission.url}", value=f"{post_author.name}", inline=True)
 
             await ctx.send(embed=embed)
 
@@ -170,8 +173,9 @@ class Scrapper(commands.Cog):
             for i in range(0, post_to_pick):
                 submission = next(x for x in posts if not x.stickied)
 
+            post_author = submission.author
             embed = discord.Embed(title=f"{submission.title}", description=f"{submission.score}")
-            embed.add_field(name=f"{submission.url}", value=" ", inline=True)
+            embed.add_field(name=f"{submission.url}", value=f"{post_author.name}", inline=True)
 
             await ctx.send(embed=embed)
 
@@ -182,8 +186,9 @@ class Scrapper(commands.Cog):
             for i in range(0, post_to_pick):
                 submission = next(x for x in posts if not x.stickied)
 
+            post_author = submission.author
             embed = discord.Embed(title=f"{submission.title}", description=f"{submission.score}")
-            embed.add_field(name=f"{submission.url}", value=" ", inline=True)
+            embed.add_field(name=f"{submission.url}", value=f"{post_author.name}", inline=True)
 
             await ctx.send(embed=embed)
 
@@ -194,8 +199,9 @@ class Scrapper(commands.Cog):
             for i in range(0, post_to_pick):
                 submission = next(x for x in posts if not x.stickied)
 
+            post_author = submission.author
             embed = discord.Embed(title=f"{submission.title}", description=f"{submission.score}")
-            embed.add_field(name=f"{submission.url}", value=" ", inline=True)
+            embed.add_field(name=f"{submission.url}", value=f"{post_author.name}", inline=True)
 
             await ctx.send(embed=embed)
 
