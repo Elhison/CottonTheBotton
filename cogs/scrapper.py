@@ -1,6 +1,7 @@
 import discord
 import requests
 import wikipedia
+import praw
 
 from discord.ext import commands
 from bs4 import BeautifulSoup
