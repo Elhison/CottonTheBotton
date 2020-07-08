@@ -124,8 +124,6 @@ class Scrapper(commands.Cog):
     @commands.command()
     async def reddit(self, ctx, subreddit, sort_type):
 
-        await ctx.channel.purge(limit=1)
-
         reddit = praw.Reddit(client_id='ZmZfg7b7KpDSRA',
                      client_secret='0bTvf-0ImHnnCdcqobI_GvlHBP4',
                      user_agent='USER_AGENT HERE')
@@ -155,7 +153,7 @@ class Scrapper(commands.Cog):
                 submission = next(x for x in posts if not x.stickied)
 
             post_author = submission.author
-            embed = discord.Embed(title=f"{submission.title}", description=f"{submission.score}")
+            embed = discord.Embed(title=f"{submission.title}", description=f"Number of fake internet points: {submission.score}")
             embed.add_field(name=f"{submission.url}", value=f"{post_author.name}", inline=True)
             embed.set_image(url=submission.url)
             await ctx.send(embed=embed)
@@ -170,7 +168,7 @@ class Scrapper(commands.Cog):
                 submission = next(x for x in posts if not x.stickied)
 
             post_author = submission.author
-            embed = discord.Embed(title=f"{submission.title}", description=f"{submission.score}")
+            embed = discord.Embed(title=f"{submission.title}", description=f"Number of fake internet points: {submission.score}")
             embed.add_field(name=f"{submission.url}", value=f"{post_author.name}", inline=True)
             embed.set_image(url=submission.url)
             await ctx.send(embed=embed)
@@ -185,7 +183,7 @@ class Scrapper(commands.Cog):
                 submission = next(x for x in posts if not x.stickied)
 
             post_author = submission.author
-            embed = discord.Embed(title=f"{submission.title}", description=f"{submission.score}")
+            embed = discord.Embed(title=f"{submission.title}", description=f"Number of fake internet points: {submission.score}")
             embed.add_field(name=f"{submission.url}", value=f"{post_author.name}", inline=True)
             embed.set_image(url=submission.url)
             await ctx.send(embed=embed)
@@ -200,7 +198,7 @@ class Scrapper(commands.Cog):
                 submission = next(x for x in posts if not x.stickied)
 
             post_author = submission.author
-            embed = discord.Embed(title=f"{submission.title}", description=f"{submission.score}")
+            embed = discord.Embed(title=f"{submission.title}", description=f"Number of fake internet points: {submission.score}")
             embed.add_field(name=f"{submission.url}", value=f"{post_author.name}", inline=True)
             embed.set_image(url=submission.url)
             await ctx.send(embed=embed)
@@ -215,7 +213,7 @@ class Scrapper(commands.Cog):
                 submission = next(x for x in posts if not x.stickied)
 
             post_author = submission.author
-            embed = discord.Embed(title=f"{submission.title}", description=f"{submission.score}")
+            embed = discord.Embed(title=f"{submission.title}", description=f"Number of fake internet points: {submission.score}")
             embed.add_field(name=f"{submission.url}", value=f"{post_author.name}", inline=True)
             embed.set_image(url=submission.url)
             await ctx.send(embed=embed)

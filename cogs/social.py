@@ -17,9 +17,9 @@ class Social(commands.Cog):
                 '(ﾉ◕ヮ◕)ﾉ*:･ﾟ✧ ✧ﾟ･: *ヽ(◕ヮ◕ヽ)', '♥‿♥', '😽', '😙', '😚', '\u2665', '\u2764']
 
         await ctx.channel.purge(limit=1)
-        await ctx.send(choice(hugs))
+        await ctx.send(random.choice(hugs))
 
-    @commands.command()
+    @commands.command(aliases=["duel"])
     async def battle(self, ctx, member: discord.Member):
         
         await ctx.send(f"{ctx.author.mention} has challenged {member.mention} in a duel!")

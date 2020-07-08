@@ -39,6 +39,8 @@ class Fun(commands.Cog):
     @commands.command(aliases=["gay-o-meter"])
     async def gay_o_meter(self, ctx, member: discord.Member):
         
+        await ctx.channel.purge(limit=1)
+        
         if member is None:
 
             await ctx.send("That member doesn't exist.")
