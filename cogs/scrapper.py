@@ -122,13 +122,15 @@ class Scrapper(commands.Cog):
 
 
     @commands.command()
-    async def reddit(self, ctx, subreddit, num_posts, sort_type):
+    async def reddit(self, ctx, subreddit, sort_type):
         reddit = praw.Reddit(client_id='ZmZfg7b7KpDSRA',
                      client_secret='0bTvf-0ImHnnCdcqobI_GvlHBP4',
                      user_agent='USER_AGENT HERE')
 
-        if num_posts == 1:
+        embed = discord.Embed(title=f"{submission.title}")
 
+        if sort_type == "controversial":
+            posts = reddit.subreddit(subreddit).controversial()
             post_to_pick = random.randint(1, 10)
 
             for i in range(0, post_to_pick):
@@ -138,29 +140,66 @@ class Scrapper(commands.Cog):
             embed.add_field(name=f"{submission.url}", value=" ", inline=True)
 
             await ctx.send(embed=embed)
-        
-        elif num_posts <= 0:
-            await ctx.send("-,-")
-
-        embed = discord.Embed(title=f"{submission.title}")
-
-        if sort_type == "controversial":
-            posts = reddit.subreddit(subreddit).controversial()
 
         elif sort_type == "gilded":
             posts = reddit.subreddit(subreddit).gilded()
+            post_to_pick = random.randint(1, 10)
+
+            for i in range(0, post_to_pick):
+                submission = next(x for x in posts if not x.stickied)
+
+            embed = discord.Embed(title=f"{submission.title}", description=f"{submission.score}")
+            embed.add_field(name=f"{submission.url}", value=" ", inline=True)
+
+            await ctx.send(embed=embed)
 
         elif sort_type == "hot":
             posts = reddit.subreddit(subreddit).hot()
+            post_to_pick = random.randint(1, 10)
+
+            for i in range(0, post_to_pick):
+                submission = next(x for x in posts if not x.stickied)
+
+            embed = discord.Embed(title=f"{submission.title}", description=f"{submission.score}")
+            embed.add_field(name=f"{submission.url}", value=" ", inline=True)
+
+            await ctx.send(embed=embed)
 
         elif sort_type == "new":
             posts = reddit.subreddit(subreddit).new()
+            post_to_pick = random.randint(1, 10)
+
+            for i in range(0, post_to_pick):
+                submission = next(x for x in posts if not x.stickied)
+
+            embed = discord.Embed(title=f"{submission.title}", description=f"{submission.score}")
+            embed.add_field(name=f"{submission.url}", value=" ", inline=True)
+
+            await ctx.send(embed=embed)
 
         elif sort_type == "rising":
             posts = reddit.subreddit(subreddit).rising()
+            post_to_pick = random.randint(1, 10)
+
+            for i in range(0, post_to_pick):
+                submission = next(x for x in posts if not x.stickied)
+
+            embed = discord.Embed(title=f"{submission.title}", description=f"{submission.score}")
+            embed.add_field(name=f"{submission.url}", value=" ", inline=True)
+
+            await ctx.send(embed=embed)
 
         elif sort_type == "top":
             posts = reddit.subreddit(subreddit).top()
+            post_to_pick = random.randint(1, 10)
+
+            for i in range(0, post_to_pick):
+                submission = next(x for x in posts if not x.stickied)
+
+            embed = discord.Embed(title=f"{submission.title}", description=f"{submission.score}")
+            embed.add_field(name=f"{submission.url}", value=" ", inline=True)
+
+            await ctx.send(embed=embed)
 
         else:
             await ctx.send("You only have 6 options: `controversial`, `gilded`, `hot`, `new`, `rising`, and `top`.")
