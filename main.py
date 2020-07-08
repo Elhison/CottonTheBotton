@@ -12,7 +12,7 @@ from itertools import cycle
 bot = commands.Bot(command_prefix=commands.when_mentioned_or('69'))
 bot.remove_command('help')
 
-status = cycle([' with your little sister', ' with your brother', ' with your mom',
+status = cycle([' with your little sister', ' with your big brother', ' with your mom',
                 ' with myself', ' with my stepsister', ' with my step brother', 'with you'])
 
 print("Booting...")

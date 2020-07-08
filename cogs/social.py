@@ -1,5 +1,7 @@
 import discord
-from random import choice
+import time
+
+from random import choice, randint
 from discord.ext import commands
 
 
@@ -17,6 +19,15 @@ class Social(commands.Cog):
         await ctx.channel.purge(limit=1)
         await ctx.send(choice(hugs))
 
+    @commands.command()
+    async def battle(self, ctx, member: discord.Member):
+        
+        await ctx.send(f"{ctx.author.mention} has challenged {member.mention} in a duel!")
+        time.sleep(2)
+        if random.randint(0,100) <= 50:
+            await ctx.send(f"And... {ctx.author.mention} lost. How humiliating! Never start a fight that you can't end, dipshit.")
+        else:
+            await ctx.send(f"And... {member.mention} lost. At least you tried :3")
 
 def setup(bot):
     bot.add_cog(Social(bot))

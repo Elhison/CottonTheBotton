@@ -123,11 +123,16 @@ class Scrapper(commands.Cog):
 
     @commands.command()
     async def reddit(self, ctx, subreddit, sort_type):
+
+        await ctx.channel.purge(limit=1)
+
         reddit = praw.Reddit(client_id='ZmZfg7b7KpDSRA',
                      client_secret='0bTvf-0ImHnnCdcqobI_GvlHBP4',
                      user_agent='USER_AGENT HERE')
 
         if sort_type == "controversial":
+
+            await ctx.channel.purge(limit=1)
             posts = reddit.subreddit(subreddit).controversial()
             post_to_pick = random.randint(1, 50)
 
@@ -137,10 +142,12 @@ class Scrapper(commands.Cog):
             post_author = submission.author
             embed = discord.Embed(title=f"{submission.title}", description=f"Number of fake internet points: {submission.score}")
             embed.add_field(name=f"{submission.url}", value=f"{post_author.name}", inline=True)
-
+            embed.set_image(url=submission.url)
             await ctx.send(embed=embed)
 
         elif sort_type == "gilded":
+
+            await ctx.channel.purge(limit=1)
             posts = reddit.subreddit(subreddit).gilded()
             post_to_pick = random.randint(1, 10)
 
@@ -150,10 +157,12 @@ class Scrapper(commands.Cog):
             post_author = submission.author
             embed = discord.Embed(title=f"{submission.title}", description=f"{submission.score}")
             embed.add_field(name=f"{submission.url}", value=f"{post_author.name}", inline=True)
-
+            embed.set_image(url=submission.url)
             await ctx.send(embed=embed)
 
         elif sort_type == "hot":
+
+            await ctx.channel.purge(limit=1)
             posts = reddit.subreddit(subreddit).hot()
             post_to_pick = random.randint(1, 10)
 
@@ -163,10 +172,12 @@ class Scrapper(commands.Cog):
             post_author = submission.author
             embed = discord.Embed(title=f"{submission.title}", description=f"{submission.score}")
             embed.add_field(name=f"{submission.url}", value=f"{post_author.name}", inline=True)
-            embed.set_thumbnail(url=submission.url)
+            embed.set_image(url=submission.url)
             await ctx.send(embed=embed)
 
         elif sort_type == "new":
+
+            await ctx.channel.purge(limit=1)
             posts = reddit.subreddit(subreddit).new()
             post_to_pick = random.randint(1, 10)
 
@@ -176,10 +187,12 @@ class Scrapper(commands.Cog):
             post_author = submission.author
             embed = discord.Embed(title=f"{submission.title}", description=f"{submission.score}")
             embed.add_field(name=f"{submission.url}", value=f"{post_author.name}", inline=True)
-
+            embed.set_image(url=submission.url)
             await ctx.send(embed=embed)
 
         elif sort_type == "rising":
+
+            await ctx.channel.purge(limit=1)
             posts = reddit.subreddit(subreddit).rising()
             post_to_pick = random.randint(1, 10)
 
@@ -189,10 +202,12 @@ class Scrapper(commands.Cog):
             post_author = submission.author
             embed = discord.Embed(title=f"{submission.title}", description=f"{submission.score}")
             embed.add_field(name=f"{submission.url}", value=f"{post_author.name}", inline=True)
-
+            embed.set_image(url=submission.url)
             await ctx.send(embed=embed)
 
         elif sort_type == "top":
+
+            await ctx.channel.purge(limit=1)
             posts = reddit.subreddit(subreddit).top()
             post_to_pick = random.randint(1, 10)
 
@@ -202,7 +217,7 @@ class Scrapper(commands.Cog):
             post_author = submission.author
             embed = discord.Embed(title=f"{submission.title}", description=f"{submission.score}")
             embed.add_field(name=f"{submission.url}", value=f"{post_author.name}", inline=True)
-
+            embed.set_image(url=submission.url)
             await ctx.send(embed=embed)
 
         else:
