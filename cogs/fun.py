@@ -18,30 +18,12 @@ class Fun(commands.Cog):
     @commands.command(aliases=['cuteimg'])
     async def cute_image(self, ctx):
 
-        file_names = ['dog0.jpg', 'dog1.jpg', 'dog2.jpg', 'dog3.jpg', 'dog4.jpg',
-                      'dog5.jpg', 'dog6.jpg', 'dog7.jpg', 'dog8.jpg', 'dog9.jpg',
-                      'dog10.jpg', 'dog11.jpg', 'dog12.jpg', 'dog13.jpg', 'dog14.jpg']
-
-        rdm_file = random.choice(file_names)
-        file = discord.File(f"./images/{rdm_file}", filename=rdm_file)
-        embed = discord.Embed()
-        embed.set_image(url=f"attachment://{rdm_file}")
-
-        await ctx.channel.purge(limit=1)
-        await ctx.send(file=file, embed=embed)
+        await ctx.send("WIP")
 
     @commands.command(aliases=['cutevid'])
     async def cute_video(self, ctx):
 
-        file_names = ['dog0.mp4', 'dog1.mp4', 'dog2.mp4', 'dog3.mp4', 'dog4.mp4'
-                                                                      'cat0.mp4', 'cat1.mp4',
-                      'seal0.mp4',
-                      'squirrel0.mp4',
-                      'turtle0.mp4']
-        rdm_file = random.choice(file_names)
-        file = discord.File(f"./videos/{rdm_file}", filename=rdm_file)
-        await ctx.channel.purge(limit=1)
-        await ctx.send(file=file)
+        await ctx.send("WIP")
 
     @commands.command()
     async def eat_dog(self, ctx):

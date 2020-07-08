@@ -1,7 +1,7 @@
 import discord
 from discord.ext import commands
 
-class Help(commands.cog):
+class Help(commands.Cog):
 
     def __init__(self, bot):
         self.bot = bot
@@ -11,7 +11,7 @@ class Help(commands.cog):
 
         embed=discord.Embed(title="List of commands", description="")
 
-        embed.add_field(name="test", value="test")
+        embed.add_field(name="test", value="test", inline=True)
 
         await ctx.send(embed=embed)
 

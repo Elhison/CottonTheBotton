@@ -12,7 +12,7 @@ class Roles(commands.Cog):
 
     @commands.command()
     async def send_roles_list(self, ctx):
-        embed = discord.Embed(title="List of Server Roles", description="(Sorted alphabetically)", color=0x0000ff)
+        embed = discord.Embed(title="List of Server Roles", description="(Sorted alphabetically)", color=0xffff00)
         embed.add_field(name="Math", value="""
             • Algebra
             • Arithmetic

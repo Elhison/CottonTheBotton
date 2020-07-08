@@ -10,7 +10,7 @@ class Rules(commands.Cog):
 
     @commands.command()
     async def first_rule(self, ctx):
-        embed = discord.Embed(title=" ", color=0x00fff9)
+        embed = discord.Embed(title=" ", color=0xffff66)
         embed.add_field(name="Rule #1:",
                         value="You can joke about anything as long as you don't offend other people. If you do offend someone, apologize.",
                         inline=False)
@@ -20,7 +20,7 @@ class Rules(commands.Cog):
 
     @commands.command()
     async def second_rule(self, ctx):
-        embed = discord.Embed(title=" ", color=0x00fff9)
+        embed = discord.Embed(title=" ", color=0xffff66)
         embed.add_field(name="Rule #2", value="NSFW content is allowed in the appropriate channels.",
                         inline=False)
 
@@ -29,7 +29,7 @@ class Rules(commands.Cog):
 
     @commands.command()
     async def third_rule(self, ctx):
-        embed = discord.Embed(title=" ", color=0x00fff9)
+        embed = discord.Embed(title=" ", color=0xffff66)
         embed.add_field(name="Rule #3",
                         value="Bestiality, child porn, torture, etc. are not allowed and will result in an immediate ban.",
                         inline=False)
@@ -39,7 +39,7 @@ class Rules(commands.Cog):
 
     @commands.command()
     async def fourth_rule(self, ctx):
-        embed = discord.Embed(title=" ", color=0x00fff9)
+        embed = discord.Embed(title=" ", color=0xffff66)
         embed.add_field(name="Rule #4",
                         value="We are all equal and we accept everyone — regardless of race, gender, or sexuality.",
                         inline=False)
@@ -49,7 +49,7 @@ class Rules(commands.Cog):
 
     @commands.command()
     async def fifth_rule(self, ctx):
-        embed = discord.Embed(title=" ", color=0x00fff9)
+        embed = discord.Embed(title=" ", color=0xffff66)
         embed.add_field(name="Rule #5",
                         value="You can only advertise your works (video, project, product, etc.) in the advertisement channel.",
                         inline=False)
@@ -58,7 +58,7 @@ class Rules(commands.Cog):
 
     @commands.command()
     async def sixth_rule(self, ctx):
-        embed = discord.Embed(title=" ", color=0x00fff9)
+        embed = discord.Embed(title=" ", color=0xffff66)
         embed.add_field(name="Rule #6", value="Swearing is allowed as long as you don't offend anyone.",
                         inline=False)
 
@@ -71,7 +71,7 @@ class Rules(commands.Cog):
         nsfw_channel = self.bot.get_channel(713952790971678812)
         await ctx.channel.purge(limit=2)
 
-        embed = discord.Embed(title="Server Rules:", color=0x00fff9)
+        embed = discord.Embed(title="Server Rules:", color=0xffff66)
         embed.add_field(name="Rule #1",
                         value="You can joke about anything as long as you don't offend other people. If you do offend someone, apologize.",
                         inline=False)
