@@ -150,10 +150,12 @@ async def on_command_error(ctx, error):
     if isinstance(error, commands.CommandNotFound):
         await ctx.send("CommandNotFound error. I don't know how to do that yet :/")
         await ctx.send(f"If you have any suggestions, you can do so in the {suggestion_channel.mention} channel :p")
+        await ctx.send(error)
         print(error)
 
     else:
         await ctx.send(f"An error probably occurred. Ask @{user_id} for any errors or shit.")
+        await ctx.send(error)
         print(error)
         
 

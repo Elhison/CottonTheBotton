@@ -2,6 +2,7 @@ import discord
 import requests
 import wikipedia
 import praw
+import random
 
 from discord.ext import commands
 from bs4 import BeautifulSoup
