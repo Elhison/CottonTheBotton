@@ -41,10 +41,10 @@ class Fun(commands.Cog):
         
         if member is None:
 
-            ctx.send("That member doesn't exist.")
+            await ctx.send("That member doesn't exist.")
 
         else:
-            ctx.send(f"{member.mention} is {random.randint(0,100)}% gay.")
+            await ctx.send(f"{member.mention} is {random.randint(0,100)}% gay.")
 
 
     @commands.command()
