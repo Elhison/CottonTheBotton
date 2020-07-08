@@ -163,8 +163,8 @@ class Scrapper(commands.Cog):
             post_author = submission.author
             embed = discord.Embed(title=f"{submission.title}", description=f"{submission.score}")
             embed.add_field(name=f"{submission.url}", value=f"{post_author.name}", inline=True)
-
-            await ctx.send(embed=embed.set_thumbnail(submission.url))
+            embed.set_author(submission.url)
+            await ctx.send(embed=embed)
 
         elif sort_type == "new":
             posts = reddit.subreddit(subreddit).new()
