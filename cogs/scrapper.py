@@ -127,11 +127,9 @@ class Scrapper(commands.Cog):
                      client_secret='0bTvf-0ImHnnCdcqobI_GvlHBP4',
                      user_agent='USER_AGENT HERE')
 
-        embed = discord.Embed(title=f"{submission.title}")
-
         if sort_type == "controversial":
             posts = reddit.subreddit(subreddit).controversial()
-            post_to_pick = random.randint(1, 10)
+            post_to_pick = random.randint(1, 50)
 
             for i in range(0, post_to_pick):
                 submission = next(x for x in posts if not x.stickied)
