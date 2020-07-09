@@ -17,18 +17,6 @@ class Fun(commands.Cog):
         await ctx.channel.send(f'Banning {member.mention}...')
 
 
-    @commands.command(aliases=['cuteimg'])
-    async def cute_image(self, ctx):
-
-        await ctx.send("WIP")
-
-
-    @commands.command(aliases=['cutevid'])
-    async def cute_video(self, ctx):
-
-        await ctx.send("WIP")
-
-
     @commands.command()
     async def eat_dog(self, ctx):
 
@@ -47,7 +35,13 @@ class Fun(commands.Cog):
 
         else:
             await ctx.send(f"{member.mention} is {random.randint(0,100)}% gay.")
+    
+    @gay_o_meter.error()
+    async def gay_o_meter_error(self, ctx, error):
 
+        await ctx.channel.purge(limit=1)
+        if isinstance(error, commands.BadArgument):
+            await ctx.send("That member does not exist.")
 
     @commands.command()
     async def hamburger(self, ctx):

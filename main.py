@@ -129,6 +129,9 @@ async def on_message(message):
         elif "chidori" in message.content.lower():
 
             await message.channel.send("Rasengan!")
+        
+        elif "bye" in message.content.lower() or "adios" in message.content.lower() or "goodbye" in message.content.lower():
+            await message.channel.send("Goodbye! uwu")
 
         else:
             pass
@@ -152,7 +155,6 @@ async def on_command_error(ctx, error):
         print(error)
 
     else:
-        await ctx.send(f"An error probably occurred. Ask @{user_id} for any errors or shit.")
         await ctx.send(error)
         print(error)
         
@@ -168,6 +170,12 @@ async def on_command_error(ctx, error):
 async def change_status():
     await bot.change_presence(activity=discord.Game(next(status)))
 
+
+@tasks.loop(hours=1)
+async def conversation_starter():
+    random_item = ["turtles", "dogs", "hamsters", "cats",
+                    "pie", "cheese", "you ;)"]
+    await bot.send(f"I like {random.choice(random_item)}")
 
 # Cogs!!!
 
