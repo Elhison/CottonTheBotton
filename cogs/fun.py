@@ -36,7 +36,7 @@ class Fun(commands.Cog):
         else:
             await ctx.send(f"{member.mention} is {random.randint(0,100)}% gay.")
     
-    @gay_o_meter.error()
+    @commands.command()
     async def gay_o_meter_error(self, ctx, error):
 
         await ctx.channel.purge(limit=1)
