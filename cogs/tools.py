@@ -7,10 +7,8 @@ from discord.ext import commands
 
 class Tools(commands.Cog):
 
-
     def __init__(self, bot):
         self.bot = bot
-    
 
     @commands.command()
     async def poll(self, ctx, *, message):
@@ -81,7 +79,7 @@ class Tools(commands.Cog):
         embed.add_field(name="Join Date", value=f"{member.joined_at}", inline=True)
         await ctx.channel.purge(limit=1)
         await ctx.send(embed=embed)
-    
+
     @user_info.error
     async def user_info_error(self, ctx, error):
 

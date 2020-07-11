@@ -11,7 +11,7 @@ class Help(commands.Cog):
 
         embed=discord.Embed(title="List of commands", description="")
 
-        embed.add_field(name="test", value="test", inline=True)
+        embed.add_field(name="tester", value="tester", inline=True)
 
         await ctx.send(embed=embed)
         
