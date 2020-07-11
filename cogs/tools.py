@@ -56,6 +56,11 @@ class Tools(commands.Cog):
             await ctx.send("You forgot to tell me the words you want to sort alphabetically. -,-")
 
     @commands.command()
+    async def remindme(self, ctx, deadline, *, message):
+
+        pass
+
+    @commands.command()
     async def reverse(self, ctx, *, message):
 
         await ctx.channel.purge(limit=1)

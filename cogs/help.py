@@ -9,7 +9,7 @@ class Help(commands.Cog):
     @commands.command()
     async def help(self, ctx):
 
-        embed=discord.Embed(title="List of commands", description="")
+        embed = discord.Embed(title="List of commands", description="")
 
         embed.add_field(name="tester", value="tester", inline=True)
 
