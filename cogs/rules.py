@@ -65,6 +65,10 @@ class Rules(commands.Cog):
         await ctx.channel.purge(limit=3)
         await ctx.send(embed=embed)
 
+
+    # send_rules() for plebs
+
+
     @commands.command()
     @commands.has_any_role('Big pp')
     async def send_rules_list(self, ctx):

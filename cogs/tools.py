@@ -33,7 +33,6 @@ class Tools(commands.Cog):
         await ctx.channel.purge(limit=1)
         await ctx.send(f"https://www.reddit.com/r/{message}")
         await ctx.send("Hey! Reddit sucks now. It's biased, pro-CCP, and anti-freespeech. Switch to Ruqqus!")
-        await ctx.send("What's Ruqqus? Type `69whatisruqqus` to know what Ruqqus is!")
 
     @commands.command(aliases=['randomnumber', 'rdmnum', 'randomnum'])
     async def random_number(self, ctx, num1: int, num2: int):
@@ -93,11 +92,6 @@ class Tools(commands.Cog):
 
         elif isinstance(error, discord.NotFound):
             await ctx.send("Member not found!")
-
-    @commands.command()
-    async def whatisruqqus(self, ctx):
-
-        pass
 
 
 def setup(bot):

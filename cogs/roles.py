@@ -10,6 +10,8 @@ class Roles(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
 
+    # TODO add send_roles for plebs
+
     @commands.command()
     async def send_roles_list(self, ctx):
         embed = discord.Embed(title="List of Server Roles", description="(Sorted alphabetically)", color=0xffff00)

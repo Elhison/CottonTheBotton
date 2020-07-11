@@ -69,11 +69,5 @@ class Fun(commands.Cog):
             loopz += 1
 
 
-    @commands.command()
-    async def random_song(self, ctx):
-
-        await ctx.channel.purge(limit=1)
-        await ctx.send("WIP")
-
 def setup(bot):
     bot.add_cog(Fun(bot))
