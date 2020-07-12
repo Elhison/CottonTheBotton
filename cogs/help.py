@@ -67,7 +67,7 @@ class Help(commands.Cog):
 
         # embed.add_field(name=" ", value=" ")
 
-        embed.add_field(name="Note:", value="Stuff enclosed with asterisks are optional.")
+        embed.add_field(name="**Note:**", value="Stuff enclosed with asterisks are optional.")
 
         embed.add_field(name="WIP", value="WIP")
 
