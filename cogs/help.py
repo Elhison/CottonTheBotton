@@ -9,6 +9,8 @@ class Help(commands.Cog):
     @commands.command()
     async def help(self, ctx):
 
+        # embed.add_field(name=" ", value=" ")
+
         embed = discord.Embed(title="List of commands", description="")
 
         embed.add_field(name="affection", value="Sends an affectionate unicode face or emoji.")
@@ -64,8 +66,6 @@ class Help(commands.Cog):
         embed.add_field(name="wikipedia_scrapper", value="Why is your English teacher outside your house?")
 
         embed.add_field(name="world_population", value="Use contraception, kids.")
-
-        # embed.add_field(name=" ", value=" ")
 
         embed.add_field(name="**Note:**", value="Stuff enclosed with asterisks are optional.")
 
