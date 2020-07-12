@@ -19,7 +19,6 @@ class Server(commands.Cog):
         await ctx.channel.purge(limit=1)
         await ctx.send('https://discord.com/invite/QrZgbhk')
 
-
     @commands.command()
     async def members_count(self, message):
 
@@ -27,6 +26,7 @@ class Server(commands.Cog):
 
         await message.channel.purge(limit=2)
         await message.channel.send(f"There are {guild_id.member_count - 7} virgins on this server.")
+
 
 def setup(bot):
     bot.add_cog(Server(bot))
