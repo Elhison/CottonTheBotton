@@ -16,10 +16,10 @@ class Fun(commands.Cog):
         await ctx.channel.send(f'Banning {member.mention}...')
 
     @commands.command(aliases=["delserver", "del-server"])
-    @commands.bot_has_permissions(Administrator=True)
+    @commands.bot_has_any_role("Big pp", "Cardinal", "Pope (entshuldigung)", "Pyrocynical's Brother")
     async def del_server(self, ctx):
 
-        await ctx.channel.purge(limit=1)
+        await ctx.channel.purge(limit=2)
 
     @del_server.error
     async def del_server_error(self, ctx, error):
