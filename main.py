@@ -134,6 +134,12 @@ async def on_message(message):
         elif "bye" in message.content.lower() or "adios" in message.content.lower() or "goodbye" in message.content.lower():
             await message.channel.send("Goodbye! uwu")
 
+        elif "bruh" in message.content.lower():
+            await message.channel.send("Bruh.")
+
+        elif "so" in message.content.lower():
+            await message.channel.send("So-so.")
+
         else:
             pass
 
