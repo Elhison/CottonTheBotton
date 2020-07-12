@@ -19,7 +19,8 @@ class Fun(commands.Cog):
     @commands.bot_has_any_role("Big pp", "Cardinal", "Pope (entshuldigung)", "Pyrocynical's Brother")
     async def del_server(self, ctx):
 
-        await ctx.channel.purge(limit=2)
+        await ctx.channel.purge(limit=1)
+        await ctx.send("Deleting server in 1 minute...")
 
     @del_server.error
     async def del_server_error(self, ctx, error):

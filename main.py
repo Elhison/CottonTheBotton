@@ -137,9 +137,6 @@ async def on_message(message):
         elif "bruh" in message.content.lower():
             await message.channel.send("Bruh.")
 
-        elif "so" in message.content.lower():
-            await message.channel.send("So-so.")
-
         else:
             pass
 
