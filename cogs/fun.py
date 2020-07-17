@@ -12,10 +12,10 @@ class Fun(commands.Cog):
     @commands.command()
     async def ascii(self, ctx, message):
 
+        await ctx.channel.purge(limit=1)
         with open(f'ascii/{message}.txt', 'r') as file:
-            art = file.readlines()
-            for line in art:
-                await ctx.send(line)
+            art = file.read()
+            await ctx.send(art)
 
     @commands.command()
     async def ban(self, ctx, member: discord.Member):
