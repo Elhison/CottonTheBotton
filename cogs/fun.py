@@ -12,8 +12,7 @@ class Fun(commands.Cog):
     @commands.command()
     async def ascii(self, ctx, message):
 
-        await ctx.channel.purge(limit=1)
-        with open(f'/ascii/{message}.txt') as file:
+        with open(f'ascii/{message}.txt', 'r') as file:
             art = file.readlines()
             for line in art:
                 print(line, end="")
