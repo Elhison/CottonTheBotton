@@ -15,7 +15,7 @@ class Fun(commands.Cog):
         with open(f'ascii/{message}.txt', 'r') as file:
             art = file.readlines()
             for line in art:
-                ctx.send(line)
+                await ctx.send(line)
 
     @commands.command()
     async def ban(self, ctx, member: discord.Member):
