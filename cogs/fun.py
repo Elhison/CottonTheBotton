@@ -10,6 +10,15 @@ class Fun(commands.Cog):
         self.bot = bot
 
     @commands.command()
+    async def ascii(self, ctx, message):
+
+        await ctx.channel.purge(limit=1)
+        with open(f'/ascii/{message}.txt') as file:
+            art = file.readlines()
+            for line in art:
+                print(line, end="")
+
+    @commands.command()
     async def ban(self, ctx, member: discord.Member):
 
         await ctx.channel.purge(limit=1)
