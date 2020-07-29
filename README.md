@@ -1,19 +1,21 @@
-# CottonTheBotton [WIP]
+# Archived. Discord sucks now. Switch to [Element](https://element.io/get-started)
+
+#### CottonTheBotton [WIP]
 Discord bot written in Python for casual use. Join my [Discord](https://discord.com/invite/QrZgbhk) server!
 
-## Features
+#### Features
 - [x] Basic functions
   * Generate random numbers >__<
   * Send doggo pics
   * Roles
   * Random turtles
   
-## Prerequisites
+#### Prerequisites
 * Discord (Lol)
 * [Discord.py](https://discordpy.readthedocs.io/en/latest/index.html)
 * A Discord bot token thingy
 
-## Installation
+#### Installation
 1. Clone the repo:
 ```
 git clone https://github.com/CottonTheButton/CottonTheBotton.git
